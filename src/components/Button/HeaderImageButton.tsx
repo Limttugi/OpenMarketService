@@ -5,14 +5,14 @@ interface HeaderImageI {
   imageSrc: string;
   text: string;
   href: string;
-  active?: boolean;
+  textColor?: string;
 }
 
-const HeaderImageButton = ({ imageSrc, text, href, active }: HeaderImageI) => {
+const HeaderImageButton = ({ imageSrc, text, href, textColor }: HeaderImageI) => {
   return (
     <ButtonWrapper to={href}>
       <Image src={imageSrc} />
-      {active ? <ButtonActiveText>{text}</ButtonActiveText> : <ButtonText>{text}</ButtonText>}
+      <ButtonText color={textColor}>{text}</ButtonText>
     </ButtonWrapper>
   );
 };
@@ -37,11 +37,7 @@ const Image = styled.img`
 const ButtonText = styled.div`
   font-size: 1.2rem;
   font-weight: 400;
-  color: #767676;
-`;
-
-const ButtonActiveText = styled(ButtonText)`
-  color: green;
+  color: ${props => props.color || '#767676'};
 `;
 
 export default HeaderImageButton;

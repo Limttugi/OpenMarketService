@@ -20,7 +20,7 @@ const Header = () => {
       <ProductionSearchBox />
       <>
         {pathname === '/cart' ? (
-          <HeaderImageButton imageSrc={ShoppingCartActiveSvg} text='장바구니' href='/cart' active={true} />
+          <HeaderImageButton imageSrc={ShoppingCartActiveSvg} text='장바구니' href='/cart' textColor='green' />
         ) : (
           <HeaderImageButton imageSrc={ShoppingCartSvg} text='장바구니' href='/cart' />
         )}
@@ -28,7 +28,7 @@ const Header = () => {
         <HeaderImageButton imageSrc={UserSvg} text='로그인' href='/signin' />
         {/* 로그인 O */}
         {/* {pathname === '/mypage' ? (
-          <HeaderImageButton imageSrc={UserSvg} text='마이페이지' href='/mypage' active={true} />
+          <HeaderImageButton imageSrc={UserSvg} text='마이페이지' href='/mypage' textColor="green" />
         ) : (
           <HeaderImageButton imageSrc={UserActiveSvg} text='마이페이지' href='/mypage' />
         )} */}
