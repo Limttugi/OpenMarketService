@@ -1,7 +1,7 @@
 import Layout from 'components/Layout/Layout';
 
 const SignIn = () => {
-  return <Layout>로그인 페이지</Layout>;
+  return <div>로그인 페이지</div>;
 };
 
 export default SignIn;
