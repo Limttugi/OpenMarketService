@@ -4,10 +4,11 @@ import { Route, Routes } from 'react-router-dom';
 
 import ProductList from 'pages/ProductList';
 import ProductDetail from 'pages/ProductDetail';
-import SignIn from './pages/SignIn';
+import SignIn from 'pages/SignIn';
 import SignUp from 'pages/SignUp';
 import ShoppingCart from 'pages/ShoppingCart';
 import Payment from 'pages/Payment';
+import MyPage from 'pages/MyPage';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       <Route path='/signUp' element={<SignUp />} />
       <Route path='/cart' element={<ShoppingCart />} />
       <Route path='/payment' element={<Payment />} />
+      <Route path='/mypage' element={<MyPage />} />
     </Routes>
   );
 };

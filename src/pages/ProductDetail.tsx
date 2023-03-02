@@ -1,5 +1,7 @@
+import Layout from 'components/Layout/Layout';
+
 const ProductDetail = () => {
-  return <div>상품 상세 페이지</div>;
+  return <Layout>상품 상세 페이지</Layout>;
 };
 
 export default ProductDetail;

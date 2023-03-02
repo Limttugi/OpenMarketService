@@ -1,5 +1,7 @@
+import Layout from 'components/Layout/Layout';
+
 const SignUp = () => {
-  return <div>회원가입 페이지</div>;
+  return <Layout>회원가입 페이지</Layout>;
 };
 
 export default SignUp;
