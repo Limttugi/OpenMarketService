@@ -1,10 +1,17 @@
 import { productI } from 'pages/ProductList';
 import { Link } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { productIdState } from 'recoil/atoms/product';
 import styled from 'styled-components';
+import { PriceCS, ProductNameCS, StoreNameCS, WonCS } from 'styles/product';
 
 const ProductItem = ({ product_id, image, store_name, product_name, price }: productI) => {
+  const setProductId = useSetRecoilState(productIdState);
+
+  const handleSetProductId = () => setProductId(product_id);
+
   return (
-    <ProductContainer to={`detail/${product_id}`}>
+    <ProductContainer to={`detail/${product_id}`} onClick={handleSetProductId}>
       <Image src={image} alt='productImage' />
       <StoreName>{store_name}</StoreName>
       <ProductName>{product_name}</ProductName>
@@ -30,31 +37,22 @@ const Image = styled.img`
   margin-bottom: 1.6rem;
 `;
 
-const StoreName = styled.p`
+const StoreName = styled(StoreNameCS)`
   font-size: 1.6rem;
-  font-weight: 400;
-  color: #767676;
 `;
 
-const ProductName = styled.p`
+const ProductName = styled(ProductNameCS)`
   font-size: 1.8rem;
-  font-weight: 400;
   margin: 1rem 0;
-  color: black;
 `;
 
-const Price = styled.p`
-  display: flex;
-  align-items: baseline;
+const Price = styled(PriceCS)`
   font-size: 2.4rem;
-  font-weight: 700;
-  color: black;
 `;
 
-const Won = styled.sub`
+const Won = styled(WonCS)`
   font-size: 1.6rem;
   line-height: 2rem;
-  color: black;
 `;
 
 export default ProductItem;
