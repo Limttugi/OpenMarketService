@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { ButtonCS } from '..';
+import { ButtonCS_Radius } from 'components/Button';
 
-const MediumSmallButtonCS = styled(ButtonCS)`
+const MediumSmallButtonCS = styled(ButtonCS_Radius)`
   height: 5.4rem;
   font-weight: 500;
   line-height: 2.3rem;

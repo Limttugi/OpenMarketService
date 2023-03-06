@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { ButtonCS } from '..';
+import { ButtonCS_Radius } from 'components/Button';
 
-export const MediumButtonCS = styled(ButtonCS)`
+export const MediumButtonCS = styled(ButtonCS_Radius)`
   height: 6rem;
   font-size: 1.8rem;
   font-weight: 700;

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { LargeButtonCS } from '.';
-import { ButtonBySizeI } from '..';
+import { ButtonWidthPropsI } from 'components/Button';
 
-interface LDisabledButtonI extends ButtonBySizeI {
+interface LDisabledButtonI extends ButtonWidthPropsI {
   text: string;
   onClickEvent?: React.MouseEvent<HTMLElement>;
 }
