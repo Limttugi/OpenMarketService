@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ButtonCS } from '../ButtonCommon';
+import { ButtonCS } from '..';
 
 const MediumSmallButtonCS = styled(ButtonCS)`
   height: 5.4rem;

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { MediumSmallButtonCS_16p } from '.';
-import { ButtonPropsI } from '../ButtonCommon';
+import { ButtonBySizeI } from '..';
 
-interface MediumSmallWhiteButtonI extends ButtonPropsI {
+interface MediumSmallWhiteButtonI extends ButtonBySizeI {
   text: string;
   onClickEvent?: React.MouseEvent<HTMLElement>;
 }

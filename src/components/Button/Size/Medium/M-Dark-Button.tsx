@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { ButtonPropsI } from '../ButtonCommon';
+import { ButtonBySizeI } from '..';
 import { MediumButtonCS } from '.';
 
-interface MDarkButtonI extends ButtonPropsI {
+interface MDarkButtonI extends ButtonBySizeI {
   text: string;
   onClickEvent?: React.MouseEvent<HTMLElement>;
 }
