@@ -9,17 +9,13 @@ interface MediumSmallButtonI extends ButtonWidthPropsI {
 }
 
 const MediumSmallButton = ({ text, width }: MediumSmallButtonI) => {
-  return (
-    <Button width={width} color={mainColor}>
-      {text}
-    </Button>
-  );
+  return <Button width={width}>{text}</Button>;
 };
 
 const Button = styled(MediumSmallButtonCS_16p)`
   border: none;
   color: white;
-  background-color: ${props => props.color};
+  background-color: ${mainColor};
 `;
 
 export default MediumSmallButton;

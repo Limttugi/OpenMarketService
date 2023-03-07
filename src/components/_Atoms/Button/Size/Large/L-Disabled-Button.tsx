@@ -8,17 +8,13 @@ interface LDisabledButtonI extends ButtonWidthPropsI {
 }
 
 const LDisabledButton = ({ text, width }: LDisabledButtonI) => {
-  return (
-    <Button width={width} color='#c4c4c4'>
-      {text}
-    </Button>
-  );
+  return <Button width={width}>{text}</Button>;
 };
 
 const Button = styled(LargeButtonCS)`
   border: none;
   color: white;
-  background-color: ${props => props.color};
+  background-color: #c4c4c4;
 `;
 
 export default LDisabledButton;

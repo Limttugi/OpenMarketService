@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { mainColor } from 'styles/global';
 
 const SearchInput = () => {
-  return <Input color={mainColor} placeholder='상품을 검색해보세요!' />;
+  return <Input placeholder='상품을 검색해보세요!' />;
 };
 
 export default SearchInput;

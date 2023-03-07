@@ -8,17 +8,13 @@ interface MediumSmallWhiteButtonI extends ButtonWidthPropsI {
 }
 
 const MediumSmallWhiteButton = ({ text, width }: MediumSmallWhiteButtonI) => {
-  return (
-    <Button width={width} color='white'>
-      {text}
-    </Button>
-  );
+  return <Button width={width}>{text}</Button>;
 };
 
 const Button = styled(MediumSmallButtonCS_16p)`
   border: 1px solid #c4c4c4;
   color: #767676;
-  background-color: ${props => props.color};
+  background-color: white;
   &:hover {
     border: 1px solid #767676;
     color: black;

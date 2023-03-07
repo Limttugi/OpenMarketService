@@ -15,9 +15,9 @@ const ProductTotalQuantityPriceText = ({ price }: ProductTotalQuantityPriceTextI
       <Text>총 상품 금액</Text>
       <TotalQuantityPriceContainer>
         <TotalQuantityText>
-          총 수량&nbsp;<Quantity color={mainColor}>{quantity}</Quantity>개
+          총 수량&nbsp;<Quantity>{quantity}</Quantity>개
         </TotalQuantityText>
-        <TotalPriceText color={mainColor}>
+        <TotalPriceText>
           {price * quantity}
           <Won>원</Won>
         </TotalPriceText>
@@ -64,12 +64,12 @@ const TotalPriceText = styled.p`
   font-size: 3.6rem;
   font-weight: 700;
   line-height: 4.5rem;
-  color: ${props => props.color};
+  color: ${mainColor};
 `;
 
 const Quantity = styled.p`
   font-style: normal;
-  color: ${props => props.color};
+  color: ${mainColor};
 `;
 
 const Won = styled.sub`

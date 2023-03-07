@@ -9,17 +9,13 @@ interface LButtonI extends ButtonWidthPropsI {
 }
 
 const LButton = ({ text, width }: LButtonI) => {
-  return (
-    <Button width={width} color={mainColor}>
-      {text}
-    </Button>
-  );
+  return <Button width={width}>{text}</Button>;
 };
 
 const Button = styled(LargeButtonCS)`
   border: none;
   color: white;
-  background-color: ${props => props.color};
+  background-color: ${mainColor};
 `;
 
 export default LButton;

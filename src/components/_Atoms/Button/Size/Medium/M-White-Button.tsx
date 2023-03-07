@@ -8,17 +8,13 @@ interface MWhiteButtonI extends ButtonWidthPropsI {
 }
 
 const MWhiteButton = ({ text, width }: MWhiteButtonI) => {
-  return (
-    <Button width={width} color='white'>
-      {text}
-    </Button>
-  );
+  return <Button width={width}>{text}</Button>;
 };
 
 const Button = styled(MediumButtonCS)`
   border: 1px solid #c4c4c4;
   color: #767676;
-  background-color: ${props => props.color};
+  background-color: white;
 `;
 
 export default MWhiteButton;

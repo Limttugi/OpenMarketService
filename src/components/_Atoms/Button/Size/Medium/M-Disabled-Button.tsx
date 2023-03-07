@@ -8,17 +8,13 @@ interface MDisabledButtonI extends ButtonWidthPropsI {
 }
 
 const MDisabledButton = ({ text, width }: MDisabledButtonI) => {
-  return (
-    <Button width={width} color='#c4c4c4'>
-      {text}
-    </Button>
-  );
+  return <Button width={width}>{text}</Button>;
 };
 
 const Button = styled(MediumButtonCS)`
   border: none;
   color: white;
-  background-color: ${props => props.color};
+  background-color: #c4c4c4;
 `;
 
 export default MDisabledButton;

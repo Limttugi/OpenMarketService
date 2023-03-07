@@ -8,17 +8,13 @@ interface MDarkButtonI extends ButtonWidthPropsI {
 }
 
 const MDarkButton = ({ text, width }: MDarkButtonI) => {
-  return (
-    <Button width={width} color='#767676'>
-      {text}
-    </Button>
-  );
+  return <Button width={width}>{text}</Button>;
 };
 
 const Button = styled(MediumButtonCS)`
   border: none;
   color: white;
-  background-color: ${props => props.color};
+  background-color: #767676;
 `;
 
 export default MDarkButton;

@@ -9,17 +9,13 @@ interface SmallWhiteButtonI extends ButtonWidthPropsI {
 }
 
 const SmallWhiteButton = ({ text, width }: SmallWhiteButtonI) => {
-  return (
-    <Button width={width} color={mainColor}>
-      {text}
-    </Button>
-  );
+  return <Button width={width}>{text}</Button>;
 };
 
 const Button = styled(SmallButtonCS)`
   border: 1px solid #c4c4c4;
   color: #767676;
-  background-color: ${props => props.color};
+  background-color: ${mainColor};
   &:hover {
     border: 1px solid #767676;
     color: black;
