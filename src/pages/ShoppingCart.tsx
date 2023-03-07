@@ -1,7 +1,7 @@
-import Layout from 'components/Layout/Layout';
+import MainTemplate from 'components/_Templates/SliderTemplate';
 
 const ShoppingCart = () => {
-  return <Layout>장바구니 페이지</Layout>;
+  return <MainTemplate>장바구니 페이지</MainTemplate>;
 };
 
 export default ShoppingCart;

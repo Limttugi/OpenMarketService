@@ -1,7 +1,7 @@
-import Layout from 'components/Layout/Layout';
+import MainTemplate from 'components/_Templates/SliderTemplate';
 
 const Payment = () => {
-  return <Layout>주문/결제 페이지</Layout>;
+  return <MainTemplate>주문/결제 페이지</MainTemplate>;
 };
 
 export default Payment;

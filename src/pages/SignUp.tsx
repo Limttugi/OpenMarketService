@@ -1,7 +1,7 @@
-import Layout from 'components/Layout/Layout';
+import MainTemplate from 'components/_Templates/SliderTemplate';
 
 const SignUp = () => {
-  return <Layout>회원가입 페이지</Layout>;
+  return <MainTemplate>회원가입 페이지</MainTemplate>;
 };
 
 export default SignUp;
