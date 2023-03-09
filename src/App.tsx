@@ -1,6 +1,7 @@
 import './App.css';
 
 import { Route, Routes } from 'react-router-dom';
+import { Suspense } from 'react';
 
 import ProductList from 'pages/ProductList';
 import ProductDetail from 'pages/ProductDetail';
@@ -12,15 +13,17 @@ import MyPage from 'pages/MyPage';
 
 const App = () => {
   return (
-    <Routes>
-      <Route path='/' element={<ProductList />} />
-      <Route path='/detail/:productId' element={<ProductDetail />} />
-      <Route path='/signin' element={<SignIn />} />
-      <Route path='/signUp' element={<SignUp />} />
-      <Route path='/cart' element={<ShoppingCart />} />
-      <Route path='/payment' element={<Payment />} />
-      <Route path='/mypage' element={<MyPage />} />
-    </Routes>
+    <Suspense>
+      <Routes>
+        <Route path='/' element={<ProductList />} />
+        <Route path='/detail/:productId' element={<ProductDetail />} />
+        <Route path='/signin' element={<SignIn />} />
+        <Route path='/signUp' element={<SignUp />} />
+        <Route path='/cart' element={<ShoppingCart />} />
+        <Route path='/payment' element={<Payment />} />
+        <Route path='/mypage' element={<MyPage />} />
+      </Routes>
+    </Suspense>
   );
 };
 
