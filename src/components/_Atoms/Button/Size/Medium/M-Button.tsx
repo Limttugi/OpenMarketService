@@ -5,11 +5,15 @@ import { ButtonWidthPropsI } from 'components/_Atoms/Button';
 
 interface MButtonI extends ButtonWidthPropsI {
   text: string;
-  onClickEvent?: React.MouseEvent<HTMLElement>;
+  onClickEvent?: () => void;
 }
 
-const MButton = ({ text, width }: MButtonI) => {
-  return <Button width={width}>{text}</Button>;
+const MButton = ({ text, width, onClickEvent }: MButtonI) => {
+  return (
+    <Button width={width} onClick={onClickEvent}>
+      {text}
+    </Button>
+  );
 };
 
 const Button = styled(MediumButtonCS)`

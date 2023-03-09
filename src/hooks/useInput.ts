@@ -5,7 +5,6 @@ export const useInput = (initialValue: string | number | readonly string[] | und
 
   const handleSetValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    console.log(value);
   };
 
   return { value, handleSetValue };
