@@ -2,22 +2,39 @@ import styled from 'styled-components';
 import TextInput from 'components/_Atoms/Input/TextInput';
 import MButton from 'components/_Atoms/Button/Size/Medium/M-Button';
 import MemberTypeButtonWrapper from '../MemberTypeButtonWrapper';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginRequest } from 'apis/accounts';
 import { useRecoilValue } from 'recoil';
 import { memberType } from 'recoil/atoms/member';
+import { LOGIN_FAILURE } from 'constants/ERROR';
+import { useState } from 'react';
 
 const SignInForm = () => {
+  const navigate = useNavigate();
+  const [loginSuccess, setLoginSuccess] = useState<boolean>(true);
   const _memberType = useRecoilValue(memberType);
 
   const handleLoginRequest = async () => {
-    const userID: HTMLInputElement | null = document.querySelector('#id');
-    const userPW: HTMLInputElement | null = document.querySelector('#pw');
+    const userInputElement_ID: HTMLInputElement | null = document.querySelector('#id');
+    const userInputElement_PW: HTMLInputElement | null = document.querySelector('#pw');
 
-    const username = userID?.value;
-    const password = userPW?.value;
-
-    const res = await loginRequest({ username, password, login_type: _memberType });
+    if (userInputElement_ID!.value === '' && userInputElement_PW!.value === '') {
+      alert('아이디와 비밀번호가 입력되지 않았습니다');
+      userInputElement_ID!.focus();
+    } //
+    else if (userInputElement_ID!.value === '') {
+      alert('아이디가 입력되지 않았습니다');
+      userInputElement_ID!.focus();
+    } //
+    else if (userInputElement_PW!.value === '') {
+      alert('비밀번호가 입력되지 않았습니다');
+      userInputElement_PW!.focus();
+    } //
+    else {
+      await loginRequest({ userInputElement_ID, userInputElement_PW, memberType: _memberType, setLoginSuccess }).then(
+        () => navigate(-1),
+      );
+    }
   };
 
   return (
@@ -25,7 +42,8 @@ const SignInForm = () => {
       <MemberTypeButtonWrapper sign='로그인' />
       <Form>
         <TextInput id='id' width='48rem' type='text' placeholder='아이디' />
-        <TextInput id='pw' width='48rem' type='password' placeholder='비밀번호' margin='0.6rem 0 3.6rem 0' />
+        <TextInput id='pw' width='48rem' type='password' placeholder='비밀번호' margin='0.6rem 0 2.6rem 0' />
+        {!loginSuccess && <ErrorMesaage>{LOGIN_FAILURE}</ErrorMesaage>}
         <MButton width='48rem' text='로그인' onClickEvent={handleLoginRequest} />
       </Form>
 
@@ -49,8 +67,16 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 55rem;
-  height: 29.2rem;
   padding: 3.5rem;
+`;
+
+const ErrorMesaage = styled.p`
+  width: 100%;
+  height: 2rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #eb5757;
+  margin-bottom: 2.6rem;
 `;
 
 const OtherMenuLinkContainer = styled.div`

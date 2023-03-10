@@ -1,16 +1,40 @@
-import { instance } from 'apis';
+import { Dispatch, SetStateAction } from 'react';
+import { instance, setInstanceHeaders } from 'apis';
 
-interface loginI {
-  username: string | undefined;
-  password: string | undefined;
-  login_type: string;
+export interface ErrorI {
+  response: {
+    status: number;
+  };
 }
 
-export const loginRequest = async ({ username, password, login_type }: loginI) => {
-  const type = login_type === '구매' ? 'BUYER' : 'SELLER';
-  console.log(username);
-  console.log(password);
-  console.log(type);
+interface loginI {
+  userInputElement_ID: HTMLInputElement | null;
+  userInputElement_PW: HTMLInputElement | null;
+  memberType: string;
+  setLoginSuccess: Dispatch<SetStateAction<boolean>>;
+}
 
-  return await instance.post('accounts/login', { username, password, login_type: type });
+export const loginRequest = async ({
+  userInputElement_ID,
+  userInputElement_PW,
+  memberType,
+  setLoginSuccess,
+}: loginI) => {
+  const username = userInputElement_ID!.value;
+  const password = userInputElement_PW!.value;
+  const login_type = memberType === '구매' ? 'BUYER' : 'SELLER';
+
+  try {
+    const res = await instance.post('accounts/login/', { username, password, login_type });
+    const JWT = res.data.token;
+
+    localStorage.setItem('JWT', JWT);
+
+    return setInstanceHeaders(JWT);
+  } catch (e) {
+    const Err = e as ErrorI;
+
+    setLoginSuccess(false);
+    return console.error(Err);
+  }
 };
