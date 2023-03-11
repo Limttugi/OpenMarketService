@@ -1,23 +1,20 @@
 import ProductSearchInput from 'components/_Molecules/Input/ProductSearchInput';
 import MainLogoLink from 'components/_Molecules/Link/MainLogoLink';
+import MyPageLink from 'components/_Molecules/Link/MyPageLink';
 import ShoppingCartLink from 'components/_Molecules/Link/ShoppingCartLink';
 import SignInLink from 'components/_Molecules/Link/SignInLink';
+import useLocalStorage from 'hooks/useLocalStorage';
 import styled from 'styled-components';
 
 const Header = () => {
+  const { checkIsLoggedIn } = useLocalStorage();
+
   return (
     <HeaderContainer>
       <MainLogoLink />
       <ProductSearchInput />
-      {/* 로그인 X */}
       <ShoppingCartLink />
-      <SignInLink />
-      {/* 로그인 O */}
-      {/* {pathname === '/mypage' ? (
-      <HeaderImageButton imageSrc={UserSvg} text='마이페이지' href='/mypage' textColor="green" />
-    ) : (
-      <HeaderImageButton imageSrc={UserActiveSvg} text='마이페이지' href='/mypage' />
-    )} */}
+      {checkIsLoggedIn() ? <MyPageLink /> : <SignInLink />}
     </HeaderContainer>
   );
 };

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import SignInImage from 'components/_Atoms/Image/SignInImage';
-import SignInImageText from 'components/_Atoms/Text/SignInImageText';
+import UserImage from 'components/_Atoms/Image/UserImage';
+import UserImageText from 'components/_Atoms/Text/UserImageText';
 
 const SignInLink = () => {
   return (
     <LinkWrapper to='/signin'>
-      <SignInImage />
-      <SignInImageText />
+      <UserImage />
+      <UserImageText text='로그인' />
     </LinkWrapper>
   );
 };
