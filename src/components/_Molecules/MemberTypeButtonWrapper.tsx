@@ -7,8 +7,8 @@ interface MemberTypeButtonWrapperI {
 const MemberTypeButtonWrapper = ({ sign }: MemberTypeButtonWrapperI) => {
   return (
     <div>
-      <MemberTypeButton type={{ sign: sign, member: '구매' }} />
-      <MemberTypeButton type={{ sign: sign, member: '판매' }} />
+      <MemberTypeButton type={{ sign: sign, member: 'BUYER' }} />
+      <MemberTypeButton type={{ sign: sign, member: 'SELLER' }} />
     </div>
   );
 };

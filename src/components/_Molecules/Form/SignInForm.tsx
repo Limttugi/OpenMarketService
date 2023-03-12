@@ -12,7 +12,7 @@ import { useState } from 'react';
 const SignInForm = () => {
   const navigate = useNavigate();
   const [loginSuccess, setLoginSuccess] = useState<boolean>(true);
-  const _memberType = useRecoilValue(memberType);
+  const login_type = useRecoilValue(memberType);
 
   const handleLoginRequest = async () => {
     const userInputElement_ID: HTMLInputElement | null = document.querySelector('#id');
@@ -31,8 +31,8 @@ const SignInForm = () => {
       userInputElement_PW!.focus();
     } //
     else {
-      await loginRequest({ userInputElement_ID, userInputElement_PW, memberType: _memberType, setLoginSuccess }).then(
-        () => navigate(-1),
+      await loginRequest({ userInputElement_ID, userInputElement_PW, login_type, setLoginSuccess }).then(() =>
+        navigate(-1),
       );
     }
   };

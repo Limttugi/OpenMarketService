@@ -5,18 +5,18 @@ import styled from 'styled-components';
 interface MemberTypeButtonI {
   type: {
     sign: '로그인' | '회원가입';
-    member: '구매' | '판매';
+    member: 'BUYER' | 'SELLER';
   };
 }
 
 const MemberTypeButton = ({ type }: MemberTypeButtonI) => {
   const [_memberType, _setMemberType] = useRecoilState(memberType);
 
-  const onChageMemberType = (e: React.MouseEvent<HTMLButtonElement>) => _setMemberType(type.member);
+  const onChageMemberType = () => _setMemberType(type.member);
 
   return (
     <Button active={_memberType === type.member} onClick={onChageMemberType}>
-      {type.member}회원 {type.sign}
+      {type.member === 'BUYER' ? '구매' : '판매'}회원 {type.sign}
     </Button>
   );
 };

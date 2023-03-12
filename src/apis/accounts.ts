@@ -10,19 +10,18 @@ export interface ErrorI {
 interface loginI {
   userInputElement_ID: HTMLInputElement | null;
   userInputElement_PW: HTMLInputElement | null;
-  memberType: string;
+  login_type: string;
   setLoginSuccess: Dispatch<SetStateAction<boolean>>;
 }
 
 export const loginRequest = async ({
   userInputElement_ID,
   userInputElement_PW,
-  memberType,
+  login_type,
   setLoginSuccess,
 }: loginI) => {
   const username = userInputElement_ID!.value;
   const password = userInputElement_PW!.value;
-  const login_type = memberType === '구매' ? 'BUYER' : 'SELLER';
 
   try {
     const res = await instance.post('accounts/login/', { username, password, login_type });

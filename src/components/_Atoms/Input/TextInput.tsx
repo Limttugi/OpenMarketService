@@ -24,6 +24,7 @@ const TextInput = ({ id, width, type, placeholder, margin }: TextInputI) => {
       type={type}
       color={mainColor}
       margin={margin}
+      autoComplete='current-password'
     />
   );
 };

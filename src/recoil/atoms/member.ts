@@ -3,8 +3,8 @@ import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
 
-export const memberType = atom<'구매' | '판매'>({
+export const memberType = atom<'BUYER' | 'SELLER'>({
   key: 'member-type',
-  default: '구매',
+  default: 'BUYER',
   effects_UNSTABLE: [persistAtom],
 });
