@@ -7,32 +7,31 @@ import { loginRequest } from 'apis/accounts';
 import { useRecoilValue } from 'recoil';
 import { memberType } from 'recoil/atoms/member';
 import { LOGIN_FAILURE } from 'constants/ERROR';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { SignForm } from './SignCommon';
 import { useInput } from 'hooks/useInput';
 
 const SignInForm = () => {
   const navigate = useNavigate();
+  const idInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const pwInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [id, handleSetId] = useInput('');
   const [password, handleSetPassword] = useInput('');
-  const [loginSuccess, setLoginSuccess] = useState<boolean>(true);
+  const [loginSuccess, setLoginSuccess] = useState(true);
   const login_type = useRecoilValue(memberType);
 
   const handleLoginRequest = async () => {
-    const userInputElement_ID: HTMLInputElement | null = document.querySelector('#id');
-    const userInputElement_PW: HTMLInputElement | null = document.querySelector('#pw');
-
-    if (userInputElement_ID!.value === '' && userInputElement_PW!.value === '') {
+    if (idInputRef.current.value === '' && pwInputRef.current.value === '') {
       alert('아이디와 비밀번호가 입력되지 않았습니다');
-      userInputElement_ID!.focus();
+      if (idInputRef.current) idInputRef.current.focus();
     } //
-    else if (userInputElement_ID!.value === '') {
+    else if (idInputRef.current.value === '') {
       alert('아이디가 입력되지 않았습니다');
-      userInputElement_ID!.focus();
+      if (idInputRef.current) idInputRef.current.focus();
     } //
-    else if (userInputElement_PW!.value === '') {
+    else if (pwInputRef.current.value === '') {
       alert('비밀번호가 입력되지 않았습니다');
-      userInputElement_PW!.focus();
+      if (pwInputRef.current) pwInputRef.current.focus();
     } //
     else {
       await loginRequest({ username: id, password, login_type, setLoginSuccess }).then(() => navigate(-1));
@@ -43,8 +42,17 @@ const SignInForm = () => {
     <>
       <MemberTypeButtonWrapper sign='로그인' />
       <SignForm alignItems='center'>
-        <TextInput value={id} setValue={handleSetId} id='id' width='48rem' type='text' placeholder='아이디' />
         <TextInput
+          myInputRef={idInputRef}
+          value={id}
+          setValue={handleSetId}
+          id='id'
+          width='48rem'
+          type='text'
+          placeholder='아이디'
+        />
+        <TextInput
+          myInputRef={pwInputRef}
           value={password}
           setValue={handleSetPassword}
           id='pw'
