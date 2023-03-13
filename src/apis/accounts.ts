@@ -8,21 +8,13 @@ export interface ErrorI {
 }
 
 interface loginI {
-  userInputElement_ID: HTMLInputElement | null;
-  userInputElement_PW: HTMLInputElement | null;
+  username: string;
+  password: string;
   login_type: string;
   setLoginSuccess: Dispatch<SetStateAction<boolean>>;
 }
 
-export const loginRequest = async ({
-  userInputElement_ID,
-  userInputElement_PW,
-  login_type,
-  setLoginSuccess,
-}: loginI) => {
-  const username = userInputElement_ID!.value;
-  const password = userInputElement_PW!.value;
-
+export const loginRequest = async ({ username, password, login_type, setLoginSuccess }: loginI) => {
   try {
     const res = await instance.post('accounts/login/', { username, password, login_type });
     const JWT = res.data.token;

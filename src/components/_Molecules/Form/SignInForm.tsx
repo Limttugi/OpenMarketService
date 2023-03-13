@@ -8,9 +8,13 @@ import { useRecoilValue } from 'recoil';
 import { memberType } from 'recoil/atoms/member';
 import { LOGIN_FAILURE } from 'constants/ERROR';
 import { useState } from 'react';
+import { SignForm } from './SignCommon';
+import { useInput } from 'hooks/useInput';
 
 const SignInForm = () => {
   const navigate = useNavigate();
+  const [id, handleSetId] = useInput('');
+  const [password, handleSetPassword] = useInput('');
   const [loginSuccess, setLoginSuccess] = useState<boolean>(true);
   const login_type = useRecoilValue(memberType);
 
@@ -31,24 +35,30 @@ const SignInForm = () => {
       userInputElement_PW!.focus();
     } //
     else {
-      await loginRequest({ userInputElement_ID, userInputElement_PW, login_type, setLoginSuccess }).then(() =>
-        navigate(-1),
-      );
+      await loginRequest({ username: id, password, login_type, setLoginSuccess }).then(() => navigate(-1));
     }
   };
 
   return (
     <>
       <MemberTypeButtonWrapper sign='로그인' />
-      <Form>
-        <TextInput id='id' width='48rem' type='text' placeholder='아이디' />
-        <TextInput id='pw' width='48rem' type='password' placeholder='비밀번호' margin='0.6rem 0 2.6rem 0' />
+      <SignForm alignItems='center'>
+        <TextInput value={id} setValue={handleSetId} id='id' width='48rem' type='text' placeholder='아이디' />
+        <TextInput
+          value={password}
+          setValue={handleSetPassword}
+          id='pw'
+          width='48rem'
+          type='password'
+          placeholder='비밀번호'
+          margin='0.6rem 0 2.6rem 0'
+        />
         {!loginSuccess && <ErrorMesaage>{LOGIN_FAILURE}</ErrorMesaage>}
         <MButton width='48rem' text='로그인' onClickEvent={handleLoginRequest} />
-      </Form>
+      </SignForm>
 
       <OtherMenuLinkContainer>
-        <MenuLink to='/join'>회원가입</MenuLink>
+        <MenuLink to='/signup'>회원가입</MenuLink>
         <MenuDivide />
         <MenuLink to='/findpw'>비밀번호 찾기</MenuLink>
       </OtherMenuLinkContainer>
@@ -57,18 +67,6 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
-
-const Form = styled.form`
-  position: relative;
-  border: 1px solid #c4c4c4;
-  border-radius: 0 0 1rem 1rem;
-  border-top: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 55rem;
-  padding: 3.5rem;
-`;
 
 const ErrorMesaage = styled.p`
   width: 100%;
