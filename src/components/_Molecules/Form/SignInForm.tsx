@@ -6,17 +6,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginRequest } from 'apis/accounts';
 import { useRecoilValue } from 'recoil';
 import { memberType } from 'recoil/atoms/member';
-import { LOGIN_FAILURE } from 'constants/ERROR';
 import { useRef, useState } from 'react';
 import { SignForm } from './SignCommon';
 import { useInput } from 'hooks/useInput';
+import { LOGIN_FAILURE } from 'constants/ERROR_MESSAGE';
 
 const SignInForm = () => {
   const navigate = useNavigate();
   const idInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const pwInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [id, handleSetId] = useInput('');
-  const [password, handleSetPassword] = useInput('');
+  const [password, handleSetPassword, setPassword] = useInput('');
   const [loginSuccess, setLoginSuccess] = useState(true);
   const login_type = useRecoilValue(memberType);
 
@@ -34,7 +34,14 @@ const SignInForm = () => {
       if (pwInputRef.current) pwInputRef.current.focus();
     } //
     else {
-      await loginRequest({ username: id, password, login_type, setLoginSuccess }).then(() => navigate(-1));
+      try {
+        await loginRequest({ username: id, password, login_type, setLoginSuccess });
+        navigate(-1);
+      } catch (e: any) {
+        console.error(e.response.data.FAIL_Message);
+        setPassword('');
+        pwInputRef.current.focus();
+      }
     }
   };
 

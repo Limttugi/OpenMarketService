@@ -15,17 +15,11 @@ interface loginI {
 }
 
 export const loginRequest = async ({ username, password, login_type, setLoginSuccess }: loginI) => {
-  try {
-    const res = await instance.post('accounts/login/', { username, password, login_type });
-    const JWT = res.data.token;
+  const res = await instance.post('accounts/login/', { username, password, login_type });
+  const JWT = res.data.token;
 
-    localStorage.setItem('JWT', JWT);
+  localStorage.setItem('JWT', JWT);
+  setInstanceHeaders(JWT);
 
-    return setInstanceHeaders(JWT);
-  } catch (e) {
-    const Err = e as ErrorI;
-
-    setLoginSuccess(false);
-    return console.error(Err);
-  }
+  return res;
 };
