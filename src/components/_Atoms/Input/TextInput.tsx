@@ -1,9 +1,12 @@
 import styled from 'styled-components';
-import { useInput } from 'hooks/useInput';
 import { mainColor } from 'styles/global';
 import { InputCS } from './_InputCommonStyle';
+import { Dispatch } from 'react';
 
 interface TextInputI {
+  myInputRef?: React.MutableRefObject<HTMLInputElement>;
+  value: string | number | undefined;
+  setValue: Dispatch<any>;
   id: string;
   width: string;
   type: string;
@@ -11,14 +14,13 @@ interface TextInputI {
   margin?: string;
 }
 
-const TextInput = ({ id, width, type, placeholder, margin }: TextInputI) => {
-  const { value, handleSetValue } = useInput('');
-
+const TextInput = ({ myInputRef, value, setValue, id, width, type, placeholder, margin }: TextInputI) => {
   return (
     <Input
+      ref={myInputRef}
       id={id}
       value={value}
-      onChange={handleSetValue}
+      onChange={setValue}
       placeholder={placeholder}
       width={width}
       type={type}

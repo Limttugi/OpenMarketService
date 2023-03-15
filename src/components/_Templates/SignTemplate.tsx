@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import MainLogoImage from 'components/_Atoms/Image/MainLogoImage';
 
 interface SignTemplateI {
   children: React.ReactNode;
@@ -7,10 +8,17 @@ interface SignTemplateI {
 const SignTemplate = ({ children }: SignTemplateI) => {
   return (
     <>
-      <Main>{children}</Main>
+      <Main>
+        <MainLogo>
+          <MainLogoImage />
+        </MainLogo>
+        {children}
+      </Main>
     </>
   );
 };
+
+export default SignTemplate;
 
 const Main = styled.main`
   display: flex;
@@ -19,4 +27,8 @@ const Main = styled.main`
   margin-top: 10rem;
 `;
 
-export default SignTemplate;
+const MainLogo = styled.h1`
+  width: 23.8rem;
+  height: 7.4rem;
+  margin-bottom: 7rem;
+`;

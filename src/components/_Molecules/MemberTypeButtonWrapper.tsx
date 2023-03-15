@@ -1,7 +1,7 @@
 import MemberTypeButton from 'components/_Atoms/Button/MemberTypeButton';
 
 interface MemberTypeButtonWrapperI {
-  sign: '로그인' | '회원가입';
+  sign: '로그인' | '가입';
 }
 
 const MemberTypeButtonWrapper = ({ sign }: MemberTypeButtonWrapperI) => {

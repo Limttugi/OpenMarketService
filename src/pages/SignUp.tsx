@@ -1,7 +1,12 @@
-import MainTemplate from 'components/_Templates/SliderTemplate';
+import SignUpForm from 'components/_Organisms/Form/SignUpForm';
+import SignTemplate from 'components/_Templates/SignTemplate';
 
 const SignUp = () => {
-  return <MainTemplate>회원가입 페이지</MainTemplate>;
+  return (
+    <SignTemplate>
+      <SignUpForm />
+    </SignTemplate>
+  );
 };
 
 export default SignUp;

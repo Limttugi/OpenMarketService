@@ -4,11 +4,15 @@ import { ButtonWidthPropsI } from 'components/_Atoms/Button';
 
 interface MDisabledButtonI extends ButtonWidthPropsI {
   text: string;
-  onClickEvent?: React.MouseEvent<HTMLElement>;
+  onClickEvent?: () => void;
 }
 
-const MDisabledButton = ({ text, width }: MDisabledButtonI) => {
-  return <Button width={width}>{text}</Button>;
+const MDisabledButton = ({ text, width, onClickEvent }: MDisabledButtonI) => {
+  return (
+    <Button width={width} onClick={onClickEvent}>
+      {text}
+    </Button>
+  );
 };
 
 const Button = styled(MediumButtonCS)`

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import TextInput from 'components/_Atoms/Input/TextInput';
 import MButton from 'components/_Atoms/Button/Size/Medium/M-Button';
-import MemberTypeButtonWrapper from '../MemberTypeButtonWrapper';
+import MemberTypeButtonWrapper from '../../_Molecules/MemberTypeButtonWrapper';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginRequest } from 'apis/accounts';
 import { useRecoilValue } from 'recoil';
@@ -35,10 +35,11 @@ const SignInForm = () => {
     } //
     else {
       try {
-        await loginRequest({ username: id, password, login_type, setLoginSuccess });
+        await loginRequest({ username: id, password, login_type });
         navigate(-1);
       } catch (e: any) {
         console.error(e.response.data.FAIL_Message);
+        setLoginSuccess(false);
         setPassword('');
         pwInputRef.current.focus();
       }

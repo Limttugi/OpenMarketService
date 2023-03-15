@@ -20,9 +20,10 @@ const NumberInputBox = ({ id, width, labelText, inputUnit }: NumberInputBoxI) =>
   };
 
   return (
-    <Label width={width}>
+    <Label>
       {labelText}
       <Input id={id} value={enteredNum} onChange={onlyEnteredNum} />
+      <Input width={width} id={id} value={enteredNum} onChange={onlyEnteredNum} />
       <InputUnit>{inputUnit}</InputUnit>
     </Label>
   );

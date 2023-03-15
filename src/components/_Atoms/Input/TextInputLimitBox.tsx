@@ -1,29 +1,30 @@
-import { useInput } from 'hooks/useInput';
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 import styled from 'styled-components';
 import { InputBoxCS, InputLabel } from './_InputCommonStyle';
 
 interface TextInputLimitBoxI {
+  value: string | number | undefined;
+  setValue: Dispatch<any>;
   id: string;
   width: string;
 }
 
-const TextInputLimitBox = ({ id, width }: TextInputLimitBoxI) => {
-  const { value, handleSetValue } = useInput('');
+const TextInputLimitBox = ({ value, setValue, id, width }: TextInputLimitBoxI) => {
   const [valueLength, setValueLength] = useState<number>(0);
 
   const checkValueLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentLength = e.target.value.length;
     if (valueLength !== currentLength) {
       setValueLength(currentLength);
-      handleSetValue(e);
+      setValue(e);
     }
   };
 
   return (
-    <Label width={width}>
+    <Label>
       상품명
       <Input id={id} value={value} placeholder='상품명' onChange={checkValueLength} />
+      <Input width={width} id={id} value={value} placeholder='상품명' onChange={checkValueLength} />
       <TextLength>{valueLength}/50</TextLength>
     </Label>
   );

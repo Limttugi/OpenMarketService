@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-export const useInput = (initialValue: string | number | readonly string[] | undefined) => {
+export const useInput = (initialValue: any) => {
   const [value, setValue] = useState(initialValue);
 
-  const handleSetValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSetValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  };
+  }, []);
 
-  return { value, handleSetValue };
+  // return { value, handleSetValue };
+  return [value, handleSetValue, setValue];
 };

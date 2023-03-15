@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 interface MemberTypeButtonI {
   type: {
-    sign: '로그인' | '회원가입';
+    sign: '로그인' | '가입';
     member: 'BUYER' | 'SELLER';
   };
 }
