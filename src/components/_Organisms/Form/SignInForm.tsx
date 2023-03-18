@@ -5,7 +5,7 @@ import MemberTypeButtonWrapper from '../../_Molecules/MemberTypeButtonWrapper';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginRequest } from 'apis/accounts';
 import { useRecoilValue } from 'recoil';
-import { memberType } from 'recoil/atoms/member';
+import { LoginType } from 'recoil/atoms/member';
 import { useRef, useState } from 'react';
 import { SignForm } from './SignCommon';
 import { useInput } from 'hooks/useInput';
@@ -18,7 +18,7 @@ const SignInForm = () => {
   const [id, handleSetId] = useInput('');
   const [password, handleSetPassword, setPassword] = useInput('');
   const [loginSuccess, setLoginSuccess] = useState(true);
-  const login_type = useRecoilValue(memberType);
+  const login_type = useRecoilValue(LoginType);
 
   const handleLoginRequest = async () => {
     if (idInputRef.current.value === '' && pwInputRef.current.value === '') {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { memberType } from 'recoil/atoms/member';
+import { LoginType } from 'recoil/atoms/member';
 
 export const MyPageDropDownButtonMyPage = () => {
   return (
@@ -12,7 +12,7 @@ export const MyPageDropDownButtonMyPage = () => {
 };
 
 export const MyPageDropDownButtonLogOut = () => {
-  const setLoginType = useSetRecoilState(memberType);
+  const setLoginType = useSetRecoilState(LoginType);
 
   const handleLogOut = () => {
     localStorage.removeItem('JWT');

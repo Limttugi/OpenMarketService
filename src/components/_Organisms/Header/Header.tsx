@@ -6,11 +6,11 @@ import ShoppingCartLink from 'components/_Molecules/Link/ShoppingCartLink';
 import SignInLink from 'components/_Molecules/Link/SignInLink';
 import useLocalStorage from 'hooks/useLocalStorage';
 import { useRecoilValue } from 'recoil';
-import { memberType } from 'recoil/atoms/member';
+import { LoginType } from 'recoil/atoms/member';
 import { HeaderContainer } from '.';
 
 const Header = () => {
-  const loginType = useRecoilValue(memberType);
+  const loginType = useRecoilValue(LoginType);
   const { checkIsLoggedIn } = useLocalStorage();
 
   return (

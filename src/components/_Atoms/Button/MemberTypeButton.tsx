@@ -1,27 +1,27 @@
 import { useRecoilState } from 'recoil';
-import { memberType } from 'recoil/atoms/member';
+import { LoginType } from 'recoil/atoms/member';
 import styled from 'styled-components';
 
-interface MemberTypeButtonI {
+interface LoginTypeButtonI {
   type: {
     sign: '로그인' | '가입';
     member: 'BUYER' | 'SELLER';
   };
 }
 
-const MemberTypeButton = ({ type }: MemberTypeButtonI) => {
-  const [_memberType, _setMemberType] = useRecoilState(memberType);
+const LoginTypeButton = ({ type }: LoginTypeButtonI) => {
+  const [loginType, setLoginType] = useRecoilState(LoginType);
 
-  const onChageMemberType = () => _setMemberType(type.member);
+  const onChageLoginType = () => setLoginType(type.member);
 
   return (
-    <Button active={_memberType === type.member} onClick={onChageMemberType}>
+    <Button active={loginType === type.member} onClick={onChageLoginType}>
       {type.member === 'BUYER' ? '구매' : '판매'}회원 {type.sign}
     </Button>
   );
 };
 
-export default MemberTypeButton;
+export default LoginTypeButton;
 
 const Button = styled.button<{ active: boolean }>`
   border: 1px solid #c4c4c4;
