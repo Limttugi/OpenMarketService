@@ -1,3 +1,4 @@
+import { Product_Info_I } from 'global_type_interface';
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
@@ -17,4 +18,10 @@ export const productBuyQuantityState = atom<number>({
 export const productSelectedMenuIndex = atom<number>({
   key: 'productSelectedMenuIndex',
   default: 0,
+});
+
+export const productListState = atom<Array<Product_Info_I>>({
+  key: 'ProductList',
+  default: [],
+  effects_UNSTABLE: [persistAtom],
 });

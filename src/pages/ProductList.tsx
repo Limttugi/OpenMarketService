@@ -1,12 +1,12 @@
-import MainTemplate from 'components/_Templates/SliderTemplate';
-import ProductItemList from 'components/_Organisms/ProducItemtList/ProductItemList';
-import MainBannerSlider from 'components/_Atoms/Slider/MainBannerSlider';
+import MainTemplate from 'components/Templates/SliderTemplate';
+import MainBannerSlider from 'components/Atoms/Slider/MainBannerSlider';
+import ProductItemListContainer from 'components/Molecules/ListContainer/ProductItemList-Container';
 
 const ProductList = () => {
   return (
     <MainTemplate>
       <MainBannerSlider />
-      <ProductItemList />
+      <ProductItemListContainer />
     </MainTemplate>
   );
 };

@@ -1,6 +1,6 @@
 import { instance, setInstanceHeaders } from 'apis';
 
-interface loginI {
+interface login_I {
   username: string;
   password: string;
   login_type: string;
@@ -19,7 +19,7 @@ interface createAccountSellerI extends createAccountBuyerI {
   store_name: string;
 }
 
-export const loginRequest = async ({ username, password, login_type }: loginI) => {
+export const loginRequest = async ({ username, password, login_type }: login_I) => {
   const res = await instance.post('accounts/login/', { username, password, login_type });
   const JWT = res.data.token;
 
@@ -39,5 +39,18 @@ export const createAccountSeller = async (createAccountData: createAccountSeller
   const { username, password, password2, phone_number, name, company_registration_number, store_name } =
     createAccountData;
 
-  return await instance.post('accounts/signup/', createAccountData);
+  return await instance.post('accounts/signup/', {
+    username,
+    password,
+    password2,
+    phone_number,
+    name,
+    company_registration_number,
+    store_name,
+  });
+};
+
+export const checkDuplicateID = async ({ username }: Pick<login_I, 'username'>) => {
+  console.log(username);
+  return await instance.post('accounts/signup/valid/username/', { username });
 };

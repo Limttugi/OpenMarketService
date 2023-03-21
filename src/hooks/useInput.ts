@@ -4,6 +4,7 @@ export const useInput = (initialValue: any) => {
   const [value, setValue] = useState(initialValue);
 
   const handleSetValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
     setValue(e.target.value);
   }, []);
 

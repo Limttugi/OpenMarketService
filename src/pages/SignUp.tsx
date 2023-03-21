@@ -1,5 +1,5 @@
-import SignUpForm from 'components/_Organisms/Form/SignUpForm';
-import SignTemplate from 'components/_Templates/SignTemplate';
+import SignUpForm from 'components/Organisms/Form/SignUp-Form';
+import SignTemplate from 'components/Templates/SignTemplate';
 
 const SignUp = () => {
   return (

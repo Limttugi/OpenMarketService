@@ -1,4 +1,4 @@
-import MainTemplate from 'components/_Templates/SliderTemplate';
+import MainTemplate from 'components/Templates/SliderTemplate';
 
 const MyPage = () => {
   return <MainTemplate>마이페이지</MainTemplate>;
