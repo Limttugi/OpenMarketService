@@ -24,6 +24,7 @@ const SearchContainer = styled.div`
 `;
 
 const Input = styled.input.attrs({ type: 'text' })`
+  position: relative;
   border: none;
   width: calc(100% - 3.2rem);
   height: 100%;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { TextInputBox } from 'components/Atoms/Input/Text/Text-InputBox';
@@ -8,13 +9,22 @@ import SignUpInputID from 'components/Molecules/Input/SignUp-Input-ID';
 import SignUpInputEmail from 'components/Molecules/Input/SignUp-Input_Email';
 import LoginTypeButtonWrapper from 'components/Molecules/Wrapper/LoginTypeButtonWrapper';
 import { useInput } from 'hooks/useInput';
-import { SignForm } from './SignCommon';
-import { mainColor } from 'styles/global';
-import { checkDuplicateID } from 'apis/accounts';
-import { useRef, useState } from 'react';
 import { Ref_T } from 'global_type_interface';
+import { SignForm } from './SignCommon';
+import SignUpInputPassword from 'components/Molecules/Input/SignUp-Input-Password';
+import useSignUpInputCheck from 'hooks/useSignUpInputCheck';
 
 const SignUpForm = () => {
+  const {
+    handleCheckValidationID,
+    handleCheckValidationPW,
+
+    validationMessageID,
+    setValidationMessageID,
+    validationMessagePW,
+    setValidationMessagePW,
+  } = useSignUpInputCheck();
+
   const [id, handleSetId] = useInput('');
   const [password, handleSetPassword] = useInput('');
   const [passwordCheck, handleSetPasswordCheck] = useInput('');
@@ -24,12 +34,6 @@ const SignUpForm = () => {
   const [subscriberNumber, handleSetSubscriberNumber] = useInput('');
   const [emailId, handleSetEmailId] = useInput('');
   const [domainName, handleSetDomainName] = useInput('');
-
-  const [validationMessageID, setValidationMessageID] = useState<string | undefined>(undefined);
-  const [errorPW, setErrorPW] = useState<boolean | undefined>(undefined);
-  const [errorName, setErrorName] = useState<boolean | undefined>(undefined);
-  const [errorPhoneNumber, setErrorPhoneNumber] = useState<boolean | undefined>(undefined);
-  const [errorEmail, setErrorEmail] = useState<boolean | undefined>(undefined);
 
   const inputRefID = useRef() as Ref_T;
   const inputRefPW = useRef() as Ref_T;
@@ -48,19 +52,6 @@ const SignUpForm = () => {
     console.log(emailId + '@' + domainName);
   };
 
-  const handleCheckDuplicationID = () => {
-    checkDuplicateID({ username: id })
-      .then(res => setValidationMessageID(res.data.Success))
-      .catch(err => {
-        const ERROR_MESSGE = err.response.data.FAIL_Message;
-
-        if (ERROR_MESSGE === '이미 사용중인 아이디입니다') {
-          setValidationMessageID(err.response.data.FAIL_Message);
-        } //
-        else setValidationMessageID('필수 정보입니다.');
-      });
-  };
-
   return (
     <>
       <SignForm alignItems='center'>
@@ -71,29 +62,26 @@ const SignUpForm = () => {
             thisRef={inputRefID}
             value={id}
             setValue={handleSetId}
-            onClickEvent={handleCheckDuplicationID}
-            onBlurEvent={handleCheckDuplicationID}
-            validation={validationMessageID === '멋진 아이디네요 :)'}
+            onClickEvent={() => handleCheckValidationID(id)}
+            onBlurEvent={() => handleCheckValidationID(id)}
+            validationMessage={validationMessageID}
           />
-          <ErrorMessage validation={validationMessageID === '멋진 아이디네요 :)'}>
-            {validationMessageID !== undefined && validationMessageID}
-          </ErrorMessage>
 
-          <TextInputBox
+          <SignUpInputPassword
             thisRef={inputRefPW}
-            typeText='비밀번호'
             value={password}
             setValue={handleSetPassword}
-            width='48rem'
-            type='password'
-            validation={true}
+            onBlurEvent={() => handleCheckValidationPW(password)}
+            validationMessage={validationMessagePW}
           />
+
           <TextInputBox
             typeText='비밀번호 재확인'
             value={passwordCheck}
             setValue={handleSetPasswordCheck}
             width='48rem'
             type='password'
+            onBlurEvent={() => handleCheckValidationPW(password)}
             validation={true}
           />
         </InputUserAccountContainer>
@@ -114,12 +102,14 @@ const SignUpForm = () => {
             handleSetAreaCode={handleSetAreaCode}
             handleSetExchageNumber={handleSetExchageNumber}
             handleSetSubscriberNumber={handleSetSubscriberNumber}
+            validation={true}
           />
           <SignUpInputEmail
             emailId={emailId}
             domainName={domainName}
             handleSetEmailId={handleSetEmailId}
             handleSetDomainName={handleSetDomainName}
+            validation={true}
           />
         </InputUserInfoContainer>
       </SignForm>
@@ -144,14 +134,7 @@ const InputUserAccountContainer = styled.div`
 `;
 
 const InputUserInfoContainer = styled.div`
-  padding-bottom: 2.4rem;
-`;
-
-const ErrorMessage = styled.div<{ validation: boolean }>`
-  margin: 1rem 0 1.2rem 0;
-  font-size: 1.6rem;
-  font-weight: 400;
-  color: ${props => (props.validation ? mainColor : '#eb5757')};
+  /* padding-bottom: 2.4rem; */
 `;
 
 const CheckLabel = styled.label`

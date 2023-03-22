@@ -10,6 +10,7 @@ interface SignUpInputPhoneNumber_I {
   handleSetAreaCode: Dispatch<number>;
   handleSetExchageNumber: Dispatch<number>;
   handleSetSubscriberNumber: Dispatch<number>;
+  validation?: boolean;
 }
 
 const SignUpInputPhoneNumber = ({

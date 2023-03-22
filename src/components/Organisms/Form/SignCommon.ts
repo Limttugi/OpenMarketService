@@ -9,5 +9,5 @@ export const SignForm = styled.form<{ alignItems: string }>`
   flex-direction: column;
   align-items: ${props => props.alignItems};
   width: 55rem;
-  padding: 0 3.5rem 0 3.5rem;
+  padding: 0 3.5rem 3.5rem 3.5rem;
 `;

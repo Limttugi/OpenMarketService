@@ -51,6 +51,5 @@ export const createAccountSeller = async (createAccountData: createAccountSeller
 };
 
 export const checkDuplicateID = async ({ username }: Pick<login_I, 'username'>) => {
-  console.log(username);
   return await instance.post('accounts/signup/valid/username/', { username });
 };

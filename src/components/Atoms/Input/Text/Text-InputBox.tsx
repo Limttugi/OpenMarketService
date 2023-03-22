@@ -19,18 +19,9 @@ interface TextInputBoxI extends CSS_T {
   onBlurEvent?: () => void;
 }
 
-const TextInputBox = ({
-  thisRef,
-  value,
-  setValue,
-  width,
-  type,
-  typeText,
-  placeholder,
-  validation,
-  children,
-  onBlurEvent,
-}: TextInputBoxI) => {
+const TextInputBox = (props: TextInputBoxI) => {
+  const { thisRef, value, setValue, width, type, typeText, placeholder, validation, children, onBlurEvent } = props;
+
   return (
     <TextInputLabel>
       <div>{typeText}</div>
@@ -50,17 +41,9 @@ const TextInputBox = ({
   );
 };
 
-const TextInputCheckBox = ({
-  thisRef,
-  value,
-  setValue,
-  width,
-  type,
-  typeText,
-  placeholder,
-  validation,
-  onBlurEvent,
-}: TextInputBoxI) => {
+const TextInputCheckBox = (props: TextInputBoxI) => {
+  const { thisRef, value, setValue, width, type, typeText, placeholder, validation, onBlurEvent } = props;
+
   return (
     <Label>
       {typeText}
@@ -94,7 +77,7 @@ export const InputBox = styled(TextInputBoxCS).attrs(props => ({ type: props.typ
   validation?: boolean;
 }>`
   width: ${props => props.width};
-  border: 1px solid ${props => (props.validation === false ? '#eb5757' : '#c4c4c4')};
+  border: 1px solid ${props => (props.validation ? '#c4c4c4' : '#eb5757')};
   &:focus {
     border: 1px solid ${mainColor};
   }

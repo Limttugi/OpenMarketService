@@ -8,13 +8,34 @@ interface SignUpInputEmail_I {
   domainName: string;
   handleSetEmailId: Dispatch<string>;
   handleSetDomainName: Dispatch<string>;
+  validation?: boolean;
 }
 
-const SignUpInputEmail = ({ emailId, domainName, handleSetEmailId, handleSetDomainName }: SignUpInputEmail_I) => {
+const SignUpInputEmail = ({
+  emailId,
+  domainName,
+  handleSetEmailId,
+  handleSetDomainName,
+  validation,
+}: SignUpInputEmail_I) => {
   return (
-    <TextInputBox typeText='이메일' value={emailId} setValue={handleSetEmailId} width='22rem' type='text'>
+    <TextInputBox
+      typeText='이메일'
+      value={emailId}
+      setValue={handleSetEmailId}
+      width='22rem'
+      type='text'
+      validation={validation}
+    >
       <At>@</At>
-      <InputBox value={domainName} onChange={handleSetDomainName} width='22rem' type='text' autoComplete='off' />
+      <InputBox
+        value={domainName}
+        onChange={handleSetDomainName}
+        width='22rem'
+        type='text'
+        autoComplete='off'
+        validation={validation}
+      />
     </TextInputBox>
   );
 };
