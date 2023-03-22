@@ -1,17 +1,9 @@
-import { Dispatch } from 'react';
-
 import { MediumSmallButton16P } from 'components/Atoms/Button/Size/MediumSmall/MS-Button';
 import { TextInputBox } from 'components/Atoms/Input/Text/Text-InputBox';
-import { Ref_T } from 'global_type_interface';
-import { ErrorMessage } from './common';
+import { ErrorMessage, SignUp_InputProps_I } from './common';
 
-interface SignUpInputID_I {
-  thisRef?: Ref_T;
-  value: string;
-  setValue: Dispatch<any>;
+interface SignUpInputID_I extends SignUp_InputProps_I {
   onClickEvent?: () => void;
-  onBlurEvent?: () => void;
-  validationMessage: string | undefined;
 }
 
 const SignUpInputID = ({ thisRef, value, setValue, onClickEvent, onBlurEvent, validationMessage }: SignUpInputID_I) => {

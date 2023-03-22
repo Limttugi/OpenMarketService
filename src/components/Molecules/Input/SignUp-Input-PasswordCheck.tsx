@@ -1,7 +1,13 @@
 import { TextInputBox } from 'components/Atoms/Input/Text/Text-InputBox';
 import { ErrorMessage, SignUp_InputProps_I } from './common';
 
-const SignUpInputPassword = ({ thisRef, value, setValue, onBlurEvent, validationMessage }: SignUp_InputProps_I) => {
+const SignUpInputPasswordCheck = ({
+  thisRef,
+  value,
+  setValue,
+  onBlurEvent,
+  validationMessage,
+}: SignUp_InputProps_I) => {
   return (
     <>
       <TextInputBox
@@ -21,4 +27,4 @@ const SignUpInputPassword = ({ thisRef, value, setValue, onBlurEvent, validation
   );
 };
 
-export default SignUpInputPassword;
+export default SignUpInputPasswordCheck;

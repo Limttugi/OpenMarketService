@@ -38,6 +38,8 @@ const useSignUpInputCheck = () => {
     if (validationMessageID === undefined) setValidationMessageID('필수 정보입니다.');
   };
 
+  const handleCheckSamePW = ({ password, passwordCheck }: { password: string; passwordCheck: string }) => {};
+
   return {
     validationMessageID,
     setValidationMessageID,
@@ -46,6 +48,7 @@ const useSignUpInputCheck = () => {
 
     handleCheckValidationID,
     handleCheckValidationPW,
+    handleCheckSamePW,
   };
 };
 
