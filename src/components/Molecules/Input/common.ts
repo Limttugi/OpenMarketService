@@ -9,10 +9,11 @@ export interface SignUp_InputProps_I {
   value: string;
   setValue: Dispatch<any>;
   onBlurEvent?: () => void;
-  validationMessage?: string;
+  validationMessageOrPass?: any;
 }
 
-export const ErrorMessage = styled.div<{ validation: boolean }>`
+export const ErrorMessage = styled.strong<{ validation: boolean }>`
+  display: block;
   margin: 1rem 0 1.2rem 0;
   font-size: 1.6rem;
   font-weight: 400;

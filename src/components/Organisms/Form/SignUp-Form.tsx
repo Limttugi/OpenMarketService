@@ -1,55 +1,89 @@
 import styled from 'styled-components';
-import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { TextInputBox } from 'components/Atoms/Input/Text/Text-InputBox';
-import MDisabledButton from 'components/Atoms/Button/Size/Medium/M-Disabled-Button';
-import SignUpInputPhoneNumber from 'components/Molecules/Input/SignUp-Input-PhoneNumber';
-import SignUpInputID from 'components/Molecules/Input/SignUp-Input-ID';
-import SignUpInputEmail from 'components/Molecules/Input/SignUp-Input_Email';
-import LoginTypeButtonWrapper from 'components/Molecules/Wrapper/LoginTypeButtonWrapper';
-import { useInput } from 'hooks/useInput';
-import { Ref_T } from 'global_type_interface';
 import { SignForm } from './SignCommon';
+import MButton from 'components/Atoms/Button/Size/Medium/M-Button';
+import MDisabledButton from 'components/Atoms/Button/Size/Medium/M-Disabled-Button';
+import SignUpInputID from 'components/Molecules/Input/SignUp-Input-ID';
 import SignUpInputPassword from 'components/Molecules/Input/SignUp-Input-Password';
+import SignUpInputPasswordCheck from 'components/Molecules/Input/SignUp-Input-PasswordCheck';
+import SignUpInputName from 'components/Molecules/Input/SignUp-Input-Name';
+import SignUpInputEmail from 'components/Molecules/Input/SignUp-Input-Email';
+import SignUpInputPhoneNumber from 'components/Molecules/Input/SignUp-Input-PhoneNumber';
+import LoginTypeButtonWrapper from 'components/Molecules/Wrapper/LoginTypeButtonWrapper';
+import { createAccountBuyer } from 'apis/accounts';
+import { useInput } from 'hooks/useInput';
 import useSignUpInputCheck from 'hooks/useSignUpInputCheck';
+import {
+  ERROR_EXSIST_EMAIL_MESSAGE,
+  ERROR_INVALID_EMAIL_FORMAT_MESSAGE,
+  ERROR_PHONE_NUMBER_EXIST_MESSAGE,
+} from 'constants/ERROR_MESSAGE';
 
 const SignUpForm = () => {
   const {
+    validationMessageOrPass,
+    setValidationMessageOrPass,
+
     handleCheckValidationID,
     handleCheckValidationPW,
-
-    validationMessageID,
-    setValidationMessageID,
-    validationMessagePW,
-    setValidationMessagePW,
+    handleCheckSamePW,
+    handleCheckName,
+    handleCheckPhoneNumber,
+    handleCheckEmail,
   } = useSignUpInputCheck();
+
+  const navigate = useNavigate();
 
   const [id, handleSetId] = useInput('');
   const [password, handleSetPassword] = useInput('');
   const [passwordCheck, handleSetPasswordCheck] = useInput('');
   const [name, handleSetName] = useInput('');
   const [areaCode, , handleSetAreaCode] = useInput('010');
-  const [exchageNumber, handleSetExchageNumber] = useInput('');
-  const [subscriberNumber, handleSetSubscriberNumber] = useInput('');
-  const [emailId, handleSetEmailId] = useInput('');
-  const [domainName, handleSetDomainName] = useInput('');
+  const [exchangeNumber, handleSetExchangeNumber, setExchangeNumber] = useInput('');
+  const [subscriberNumber, handleSetSubscriberNumber, setSubScriberNumber] = useInput('');
+  const [emailId, handleSetEmailId, setEmailId] = useInput('');
+  const [domainName, handleSetDomainName, setDomainName] = useInput('');
 
-  const inputRefID = useRef() as Ref_T;
-  const inputRefPW = useRef() as Ref_T;
-  const inputRefPWCheck = useRef() as Ref_T;
-  const inputRefName = useRef() as Ref_T;
-  const inputRefPhoneNumber = useRef() as Ref_T;
-  const inputRefEmail = useRef() as Ref_T;
+  const [checked, setChecked] = useState(false);
 
-  const handleSignUp = () => {
-    console.log(id);
-    console.log(password);
-    console.log(passwordCheck);
-    console.log(name);
-    console.log('areaCode : ' + areaCode);
-    console.log(areaCode + exchageNumber + subscriberNumber);
-    console.log(emailId + '@' + domainName);
+  const handleSetErrorResponseMessage = ({ error, errorMessage }: { error: string; errorMessage?: string }) => {
+    if (error === 'phone_number') {
+      console.log('phone');
+      setValidationMessageOrPass({ ...validationMessageOrPass, phoneNumber: ERROR_PHONE_NUMBER_EXIST_MESSAGE });
+      validationMessageOrPass.phoneNumber = ERROR_PHONE_NUMBER_EXIST_MESSAGE;
+      setExchangeNumber('');
+      setSubScriberNumber('');
+    }
+
+    if (error === 'email') {
+      if (errorMessage === ERROR_INVALID_EMAIL_FORMAT_MESSAGE)
+        setValidationMessageOrPass({ ...validationMessageOrPass, email: ERROR_INVALID_EMAIL_FORMAT_MESSAGE });
+      else if (errorMessage === ERROR_EXSIST_EMAIL_MESSAGE)
+        setValidationMessageOrPass({ ...validationMessageOrPass, email: ERROR_EXSIST_EMAIL_MESSAGE });
+      setEmailId('');
+      setDomainName('');
+    }
+  };
+
+  const handleSignUp_Buyer = () => {
+    const phone_number = areaCode + exchangeNumber + subscriberNumber;
+    const createAccountData = { username: id, password, password2: passwordCheck, phone_number, name } as any;
+
+    createAccountBuyer(createAccountData)
+      .then(res => {
+        console.log(res);
+        navigate('/signin');
+      })
+      .catch(err => {
+        const RESPONSE_ERROR = err.response.data;
+
+        console.error(RESPONSE_ERROR);
+        for (let error in RESPONSE_ERROR) {
+          handleSetErrorResponseMessage({ error, errorMessage: RESPONSE_ERROR.error });
+        }
+      });
   };
 
   return (
@@ -59,70 +93,77 @@ const SignUpForm = () => {
 
         <InputUserAccountContainer>
           <SignUpInputID
-            thisRef={inputRefID}
             value={id}
             setValue={handleSetId}
             onClickEvent={() => handleCheckValidationID(id)}
             onBlurEvent={() => handleCheckValidationID(id)}
-            validationMessage={validationMessageID}
+            validationMessageOrPass={validationMessageOrPass.id}
           />
 
           <SignUpInputPassword
-            thisRef={inputRefPW}
             value={password}
             setValue={handleSetPassword}
             onBlurEvent={() => handleCheckValidationPW(password)}
-            validationMessage={validationMessagePW}
+            validationMessageOrPass={validationMessageOrPass.pw}
           />
 
-          <TextInputBox
-            typeText='비밀번호 재확인'
+          <SignUpInputPasswordCheck
             value={passwordCheck}
             setValue={handleSetPasswordCheck}
-            width='48rem'
-            type='password'
-            onBlurEvent={() => handleCheckValidationPW(password)}
-            validation={true}
+            onBlurEvent={() => handleCheckSamePW({ password, passwordCheck })}
+            validationMessageOrPass={validationMessageOrPass.pwCheck}
           />
         </InputUserAccountContainer>
 
         <InputUserInfoContainer>
-          <TextInputBox
-            typeText='이름'
+          <SignUpInputName
             value={name}
             setValue={handleSetName}
-            width='48rem'
-            type='text'
-            validation={true}
+            onBlurEvent={() => handleCheckName(name)}
+            validationMessageOrPass={validationMessageOrPass.name}
           />
+
           <SignUpInputPhoneNumber
             areaCode={areaCode}
-            exchageNumber={exchageNumber}
+            exchangeNumber={exchangeNumber}
             subscriberNumber={subscriberNumber}
             handleSetAreaCode={handleSetAreaCode}
-            handleSetExchageNumber={handleSetExchageNumber}
+            handleSetExchangeNumber={handleSetExchangeNumber}
             handleSetSubscriberNumber={handleSetSubscriberNumber}
-            validation={true}
+            onBlurEvent={() => handleCheckPhoneNumber({ exchangeNumber, subscriberNumber })}
+            validationMessageOrPass={validationMessageOrPass.phoneNumber}
           />
+
           <SignUpInputEmail
             emailId={emailId}
             domainName={domainName}
             handleSetEmailId={handleSetEmailId}
             handleSetDomainName={handleSetDomainName}
-            validation={true}
+            onBlurEvent={() => handleCheckEmail({ emailId, domainName })}
+            validationMessageOrPass={validationMessageOrPass.email}
           />
         </InputUserInfoContainer>
       </SignForm>
 
       <CheckLabel>
-        <CheckBox />
+        <CheckBox checked={checked} onClick={() => setChecked(!checked)} readOnly />
         <CheckText>
           호두샵의&nbsp;<HyperLink to=''>이용약관</HyperLink>&nbsp;및&nbsp;
           <HyperLink to=''>개인정보처리방침</HyperLink>에 대한 내용을 확인하였고 동의합니다.
         </CheckText>
       </CheckLabel>
 
-      <MDisabledButton width='48rem' text='가입하기' onClickEvent={handleSignUp} />
+      {checked &&
+      validationMessageOrPass.id === '멋진 아이디네요 :)' &&
+      validationMessageOrPass.pw === true &&
+      validationMessageOrPass.pwCheck === true &&
+      validationMessageOrPass.name === true &&
+      validationMessageOrPass.phoneNumber === true &&
+      validationMessageOrPass.email === true ? (
+        <MButton width='48rem' text='가입하기' onClickEvent={handleSignUp_Buyer} />
+      ) : (
+        <MDisabledButton width='48rem' text='가입하기' />
+      )}
     </>
   );
 };
@@ -133,9 +174,7 @@ const InputUserAccountContainer = styled.div`
   margin-bottom: 3.8rem;
 `;
 
-const InputUserInfoContainer = styled.div`
-  /* padding-bottom: 2.4rem; */
-`;
+const InputUserInfoContainer = styled.div``;
 
 const CheckLabel = styled.label`
   height: 4rem;

@@ -33,7 +33,7 @@ const PhoneNumberAreaCodeInput = ({ areaCode, handleSetAreaCode }: PhoneNumberAr
 
   return (
     <AreaCodeWrapper>
-      <PhoneNumberInput ref={areaCodeRef} value={areaCode} readOnly />
+      <PhoneNumberInput ref={areaCodeRef} value={areaCode} validation={true} readOnly />
       {showAreaCodeOption && (
         <AreaCodeCustomSelectBox ref={listRef}>
           {AREACODE.map(code => {
@@ -99,8 +99,9 @@ export const PhoneNumberInput = styled.input.attrs({
   ref?: any;
   value?: any;
   onChange?: any;
+  validation?: boolean;
 }>`
-  border: 1px solid #c4c4c4;
+  border: 1px solid ${props => (props.validation ? '#c4c4c4' : '#eb5757')};
   border-radius: 0.5rem;
   width: 15.2rem;
   height: 5.4rem;

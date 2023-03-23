@@ -6,24 +6,24 @@ const SignUpInputPasswordCheck = ({
   value,
   setValue,
   onBlurEvent,
-  validationMessage,
+  validationMessageOrPass,
 }: SignUp_InputProps_I) => {
   return (
-    <>
+    <fieldset>
       <TextInputBox
         thisRef={thisRef}
-        typeText='비밀번호'
+        typeText='비밀번호 재확인'
         value={value}
         setValue={setValue}
         onBlurEvent={onBlurEvent}
         width='48rem'
         type='password'
-        validation={validationMessage === undefined}
+        validation={validationMessageOrPass === true || validationMessageOrPass === ''}
       />
-      <ErrorMessage validation={validationMessage === undefined}>
-        {validationMessage !== undefined && validationMessage}
+      <ErrorMessage validation={validationMessageOrPass === true || validationMessageOrPass === ''}>
+        {validationMessageOrPass !== '' && validationMessageOrPass}
       </ErrorMessage>
-    </>
+    </fieldset>
   );
 };
 

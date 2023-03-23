@@ -31,6 +31,7 @@ export const loginRequest = async ({ username, password, login_type }: login_I) 
 
 export const createAccountBuyer = async (createAccountData: createAccountBuyerI) => {
   const { username, password, password2, phone_number, name } = createAccountData;
+  console.log(createAccountData);
 
   return await instance.post('accounts/signup/', { username, password, password2, phone_number, name });
 };

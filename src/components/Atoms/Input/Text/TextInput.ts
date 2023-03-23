@@ -23,5 +23,4 @@ export const TextInputLabel = styled.label`
   font-weight: 400;
   line-height: 2rem;
   color: #767676;
-  /* margin-bottom: 1.2rem; */
 `;

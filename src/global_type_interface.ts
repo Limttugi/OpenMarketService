@@ -1,3 +1,7 @@
+import { Dispatch } from 'react';
+import { RegularExpressionLiteral } from 'typescript';
+
+// CSS //
 export interface CSS_I {
   width: string;
   height: string;
@@ -8,6 +12,7 @@ export interface CSS_I {
   color?: string;
 }
 
+// 상품 정보 //
 export interface ProductEssentialInfo_I {
   image: string;
   price: number;
@@ -26,4 +31,25 @@ export interface Product_Info_I extends ProductEssentialInfo_I {
   updated_at: string;
 }
 
+// 유저 정보 //
+export interface UserInfo_I {
+  username?: string;
+  password?: string;
+  passwordCheck?: string;
+  name?: string;
+  exchangeNumber?: number;
+  subscriberNumber?: number;
+  emailId?: string;
+  domainName?: string;
+}
+
+export interface CheckInputUserInfo_I {
+  inputValue: string;
+  setErrorMessage: Dispatch<string>;
+  subInputValue?: string;
+  setSubErrorMessage?: Dispatch<string>;
+  regExp?: RegExp;
+}
+
+// Input Ref //
 export type Ref_T = React.ForwardedRef<HTMLInputElement> | React.MutableRefObject<HTMLInputElement>;

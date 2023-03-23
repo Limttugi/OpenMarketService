@@ -1,23 +1,17 @@
 import { TextInputBox } from 'components/Atoms/Input/Text/Text-InputBox';
 import { ErrorMessage, SignUp_InputProps_I } from './common';
 
-const SignUpInputPassword = ({
-  thisRef,
-  value,
-  setValue,
-  onBlurEvent,
-  validationMessageOrPass,
-}: SignUp_InputProps_I) => {
+const SignUpInputName = ({ thisRef, value, setValue, onBlurEvent, validationMessageOrPass }: SignUp_InputProps_I) => {
   return (
     <fieldset>
       <TextInputBox
+        typeText='이름'
         thisRef={thisRef}
-        typeText='비밀번호'
         value={value}
         setValue={setValue}
-        onBlurEvent={onBlurEvent}
         width='48rem'
-        type='password'
+        type='text'
+        onBlurEvent={onBlurEvent}
         validation={validationMessageOrPass === true || validationMessageOrPass === ''}
       />
       <ErrorMessage validation={validationMessageOrPass === true || validationMessageOrPass === ''}>
@@ -27,4 +21,4 @@ const SignUpInputPassword = ({
   );
 };
 
-export default SignUpInputPassword;
+export default SignUpInputName;
