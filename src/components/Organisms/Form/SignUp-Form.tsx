@@ -15,11 +15,7 @@ import LoginTypeButtonWrapper from 'components/Molecules/Wrapper/LoginTypeButton
 import { createAccountBuyer } from 'apis/accounts';
 import { useInput } from 'hooks/useInput';
 import useSignUpInputCheck from 'hooks/useSignUpInputCheck';
-import {
-  ERROR_EXSIST_EMAIL_MESSAGE,
-  ERROR_INVALID_EMAIL_FORMAT_MESSAGE,
-  ERROR_PHONE_NUMBER_EXIST_MESSAGE,
-} from 'constants/ERROR_MESSAGE';
+import { ERROR_INVALID_EMAIL_FORMAT_MESSAGE, ERROR_PHONE_NUMBER_EXIST_MESSAGE } from 'constants/ERROR_MESSAGE';
 
 const SignUpForm = () => {
   const {
@@ -50,9 +46,7 @@ const SignUpForm = () => {
 
   const handleSetErrorResponseMessage = ({ error, errorMessage }: { error: string; errorMessage?: string }) => {
     if (error === 'phone_number') {
-      console.log('phone');
       setValidationMessageOrPass({ ...validationMessageOrPass, phoneNumber: ERROR_PHONE_NUMBER_EXIST_MESSAGE });
-      validationMessageOrPass.phoneNumber = ERROR_PHONE_NUMBER_EXIST_MESSAGE;
       setExchangeNumber('');
       setSubScriberNumber('');
     }
@@ -60,8 +54,6 @@ const SignUpForm = () => {
     if (error === 'email') {
       if (errorMessage === ERROR_INVALID_EMAIL_FORMAT_MESSAGE)
         setValidationMessageOrPass({ ...validationMessageOrPass, email: ERROR_INVALID_EMAIL_FORMAT_MESSAGE });
-      else if (errorMessage === ERROR_EXSIST_EMAIL_MESSAGE)
-        setValidationMessageOrPass({ ...validationMessageOrPass, email: ERROR_EXSIST_EMAIL_MESSAGE });
       setEmailId('');
       setDomainName('');
     }
