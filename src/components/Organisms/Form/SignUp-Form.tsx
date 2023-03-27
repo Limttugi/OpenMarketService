@@ -12,7 +12,11 @@ import SignUpInputName from 'components/Molecules/Input/SignUp-Input-Name';
 import SignUpInputEmail from 'components/Molecules/Input/SignUp-Input-Email';
 import SignUpInputPhoneNumber from 'components/Molecules/Input/SignUp-Input-PhoneNumber';
 import LoginTypeButtonWrapper from 'components/Molecules/Wrapper/LoginType-Button-Wrapper';
+<<<<<<< HEAD
 import { createAccountBuyer, createAccountSeller } from 'apis/accounts';
+=======
+import { checkRegistrationNumber, createAccountBuyer, createAccountSeller } from 'apis/accounts';
+>>>>>>> b14fccd85d911bb6bfbe059646641068953486b4
 import { useInput } from 'hooks/useInput';
 import useSignUpInputCheck from 'hooks/useSignUpInputCheck';
 import { ERROR_INVALID_EMAIL_FORMAT_MESSAGE, ERROR_PHONE_NUMBER_EXIST_MESSAGE } from 'constants/ERROR_MESSAGE';
