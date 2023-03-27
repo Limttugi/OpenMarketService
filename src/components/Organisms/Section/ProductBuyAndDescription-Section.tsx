@@ -9,7 +9,7 @@ import ProductStoreNameText from 'components/Atoms/Text/Product-StoreName-Text';
 import ProductQuantityButton from 'components/Atoms/Button/ProductQuantity-Button';
 import MButton from 'components/Atoms/Button/Size/Medium/M-Button';
 import MDarkButton from 'components/Atoms/Button/Size/Medium/M-Dark-Button';
-import ProductTotalQuantityPriceWrapper from 'components/Molecules/Wrapper/ProductTotalQuantityPrice-Wrapper';
+import ProductTotalQuantityPriceWrapper from 'components/Molecules/Wrapper/Product-TotalQuantityPrice-Wrapper';
 
 const ProductBuyAndDescriptionSection = () => {
   const productDetail = useRecoilValue(handleGetProductDetail);

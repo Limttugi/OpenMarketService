@@ -20,6 +20,8 @@ interface validationMessageOrPass_I {
   name: string | true;
   phoneNumber: string | true;
   email: string | true;
+  registerationNumber: string | true;
+  storeName: string | true;
 }
 
 const useSignUpInputCheck = () => {
@@ -30,31 +32,50 @@ const useSignUpInputCheck = () => {
     name: '',
     phoneNumber: '',
     email: '',
+    registerationNumber: '',
+    storeName: '',
   });
 
   const handleSetErrorMessage = (array: Array<string>) => {
-    const number = array.length;
+    const { id, pw, pwCheck, name, phoneNumber, email, registerationNumber } = validationMessageOrPass;
+    const ArrayLength = array.length;
 
-    if (number === 1) {
-      if (validationMessageOrPass.id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
-    } else if (number === 2) {
-      if (validationMessageOrPass.id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
-      if (validationMessageOrPass.pw === '') validationMessageOrPass.pw = ERROR_REQUIRED_INFO_MESSAGE;
-    } else if (number === 3) {
-      if (validationMessageOrPass.id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
-      if (validationMessageOrPass.pw === '') validationMessageOrPass.pw = ERROR_REQUIRED_INFO_MESSAGE;
-      if (validationMessageOrPass.pwCheck === '') validationMessageOrPass.pwCheck = ERROR_REQUIRED_INFO_MESSAGE;
-    } else if (number === 4) {
-      if (validationMessageOrPass.id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
-      if (validationMessageOrPass.pw === '') validationMessageOrPass.pw = ERROR_REQUIRED_INFO_MESSAGE;
-      if (validationMessageOrPass.pwCheck === '') validationMessageOrPass.pwCheck = ERROR_REQUIRED_INFO_MESSAGE;
-      if (validationMessageOrPass.name === '') validationMessageOrPass.name = ERROR_REQUIRED_INFO_MESSAGE;
-    } else if (number === 5) {
-      if (validationMessageOrPass.id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
-      if (validationMessageOrPass.pw === '') validationMessageOrPass.pw = ERROR_REQUIRED_INFO_MESSAGE;
-      if (validationMessageOrPass.pwCheck === '') validationMessageOrPass.pwCheck = ERROR_REQUIRED_INFO_MESSAGE;
-      if (validationMessageOrPass.name === '') validationMessageOrPass.name = ERROR_REQUIRED_INFO_MESSAGE;
-      if (validationMessageOrPass.phoneNumber === '') validationMessageOrPass.phoneNumber = ERROR_REQUIRED_INFO_MESSAGE;
+    if (ArrayLength === 1) {
+      if (id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
+    } else if (ArrayLength === 2) {
+      if (id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pw === '') validationMessageOrPass.pw = ERROR_REQUIRED_INFO_MESSAGE;
+    } else if (ArrayLength === 3) {
+      if (id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pw === '') validationMessageOrPass.pw = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pwCheck === '') validationMessageOrPass.pwCheck = ERROR_REQUIRED_INFO_MESSAGE;
+    } else if (ArrayLength === 4) {
+      if (id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pw === '') validationMessageOrPass.pw = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pwCheck === '') validationMessageOrPass.pwCheck = ERROR_REQUIRED_INFO_MESSAGE;
+      if (name === '') validationMessageOrPass.name = ERROR_REQUIRED_INFO_MESSAGE;
+    } else if (ArrayLength === 5) {
+      if (id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pw === '') validationMessageOrPass.pw = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pwCheck === '') validationMessageOrPass.pwCheck = ERROR_REQUIRED_INFO_MESSAGE;
+      if (name === '') validationMessageOrPass.name = ERROR_REQUIRED_INFO_MESSAGE;
+      if (phoneNumber === '') validationMessageOrPass.phoneNumber = ERROR_REQUIRED_INFO_MESSAGE;
+    } else if (ArrayLength === 6) {
+      if (id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pw === '') validationMessageOrPass.pw = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pwCheck === '') validationMessageOrPass.pwCheck = ERROR_REQUIRED_INFO_MESSAGE;
+      if (name === '') validationMessageOrPass.name = ERROR_REQUIRED_INFO_MESSAGE;
+      if (phoneNumber === '') validationMessageOrPass.phoneNumber = ERROR_REQUIRED_INFO_MESSAGE;
+      if (email === '') validationMessageOrPass.email = ERROR_REQUIRED_INFO_MESSAGE;
+      console.log(validationMessageOrPass);
+    } else if (ArrayLength === 7) {
+      if (id === '') validationMessageOrPass.id = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pw === '') validationMessageOrPass.pw = ERROR_REQUIRED_INFO_MESSAGE;
+      if (pwCheck === '') validationMessageOrPass.pwCheck = ERROR_REQUIRED_INFO_MESSAGE;
+      if (name === '') validationMessageOrPass.name = ERROR_REQUIRED_INFO_MESSAGE;
+      if (phoneNumber === '') validationMessageOrPass.phoneNumber = ERROR_REQUIRED_INFO_MESSAGE;
+      if (email === '') validationMessageOrPass.email = ERROR_REQUIRED_INFO_MESSAGE;
+      if (registerationNumber === '') validationMessageOrPass.registerationNumber = ERROR_REQUIRED_INFO_MESSAGE;
     }
   };
 
@@ -138,6 +159,23 @@ const useSignUpInputCheck = () => {
     }
   };
 
+  const handleCheckValidationRegistrationNumber = (registerationNumber: string) => {
+    handleSetErrorMessage(['id', 'pw', 'pwCheck', 'name', 'phoneNumber', 'email']);
+
+    if (registerationNumber === '')
+      setValidationMessageOrPass({ ...validationMessageOrPass, registerationNumber: ERROR_REQUIRED_INFO_MESSAGE });
+    else setValidationMessageOrPass({ ...validationMessageOrPass, registerationNumber: true });
+    console.log(validationMessageOrPass.registerationNumber);
+  };
+
+  const handleCheckStoreName = (storeName: string) => {
+    handleSetErrorMessage(['id', 'pw', 'pwCheck', 'name', 'phoneNumber', 'email', 'registerationNumber']);
+
+    if (storeName === '')
+      setValidationMessageOrPass({ ...validationMessageOrPass, storeName: ERROR_REQUIRED_INFO_MESSAGE });
+    else setValidationMessageOrPass({ ...validationMessageOrPass, storeName: '' });
+  };
+
   return {
     validationMessageOrPass,
     setValidationMessageOrPass,
@@ -148,6 +186,8 @@ const useSignUpInputCheck = () => {
     handleCheckName,
     handleCheckPhoneNumber,
     handleCheckEmail,
+    handleCheckValidationRegistrationNumber,
+    handleCheckStoreName,
   };
 };
 
