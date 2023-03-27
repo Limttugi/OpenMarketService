@@ -11,11 +11,15 @@ import SignUpInputPasswordCheck from 'components/Molecules/Input/SignUp-Input-Pa
 import SignUpInputName from 'components/Molecules/Input/SignUp-Input-Name';
 import SignUpInputEmail from 'components/Molecules/Input/SignUp-Input-Email';
 import SignUpInputPhoneNumber from 'components/Molecules/Input/SignUp-Input-PhoneNumber';
-import LoginTypeButtonWrapper from 'components/Molecules/Wrapper/LoginTypeButtonWrapper';
-import { createAccountBuyer } from 'apis/accounts';
+import LoginTypeButtonWrapper from 'components/Molecules/Wrapper/LoginType-Button-Wrapper';
+import { checkRegistrationNumber, createAccountBuyer, createAccountSeller } from 'apis/accounts';
 import { useInput } from 'hooks/useInput';
 import useSignUpInputCheck from 'hooks/useSignUpInputCheck';
 import { ERROR_INVALID_EMAIL_FORMAT_MESSAGE, ERROR_PHONE_NUMBER_EXIST_MESSAGE } from 'constants/ERROR_MESSAGE';
+import { useRecoilValue } from 'recoil';
+import { LoginType } from 'recoil/atoms/member';
+import SignUpInputRegistrationNumber from 'components/Molecules/Input/SignUp-Input-Registration-Number';
+import SignUpInputStoreName from 'components/Molecules/Input/SignUp-Input-StoreName';
 
 const SignUpForm = () => {
   const {
@@ -28,6 +32,8 @@ const SignUpForm = () => {
     handleCheckName,
     handleCheckPhoneNumber,
     handleCheckEmail,
+    handleCheckValidationRegistrationNumber,
+    handleCheckStoreName,
   } = useSignUpInputCheck();
 
   const navigate = useNavigate();
@@ -41,8 +47,31 @@ const SignUpForm = () => {
   const [subscriberNumber, handleSetSubscriberNumber, setSubScriberNumber] = useInput('');
   const [emailId, handleSetEmailId, setEmailId] = useInput('');
   const [domainName, handleSetDomainName, setDomainName] = useInput('');
-
   const [checked, setChecked] = useState(false);
+  const [registrationNumber, handleSetRegistrationNumber] = useInput('');
+  const [storeName, handleSetStoreName] = useInput('');
+
+  const loginType = useRecoilValue(LoginType);
+
+  const BUYER_VALIDATION =
+    checked &&
+    validationMessageOrPass.id === '멋진 아이디네요 :)' &&
+    validationMessageOrPass.pw === true &&
+    validationMessageOrPass.pwCheck === true &&
+    validationMessageOrPass.name === true &&
+    validationMessageOrPass.phoneNumber === true &&
+    validationMessageOrPass.email === true;
+
+  const SELLER_SIGNUP_VALIDATION =
+    checked &&
+    validationMessageOrPass.id === '멋진 아이디네요 :)' &&
+    validationMessageOrPass.pw === true &&
+    validationMessageOrPass.pwCheck === true &&
+    validationMessageOrPass.name === true &&
+    validationMessageOrPass.phoneNumber === true &&
+    validationMessageOrPass.email === true &&
+    validationMessageOrPass.registerationNumber === true &&
+    validationMessageOrPass.storeName === true;
 
   const handleSetErrorResponseMessage = ({ error, errorMessage }: { error: string; errorMessage?: string }) => {
     if (error === 'phone_number') {
@@ -59,23 +88,39 @@ const SignUpForm = () => {
     }
   };
 
-  const handleSignUp_Buyer = () => {
+  const handleSignUp = () => {
     const phone_number = areaCode + exchangeNumber + subscriberNumber;
-    const createAccountData = { username: id, password, password2: passwordCheck, phone_number, name } as any;
+    const createAccountBuyerData = { username: id, password, password2: passwordCheck, phone_number, name };
+    const createAccountSellerData = {
+      username: id,
+      password,
+      password2: passwordCheck,
+      phone_number,
+      name,
+      company_registration_number: registrationNumber,
+      store_name: storeName,
+    };
 
-    createAccountBuyer(createAccountData)
-      .then(res => {
-        console.log(res);
-        navigate('/signin');
-      })
-      .catch(err => {
-        const RESPONSE_ERROR = err.response.data;
+    if (loginType === 'BUYER') {
+      createAccountBuyer(createAccountBuyerData)
+        .then(res => {
+          console.log(res);
+          navigate('/signin');
+        })
+        .catch(err => {
+          const RESPONSE_ERROR = err.response.data;
 
-        console.error(RESPONSE_ERROR);
-        for (let error in RESPONSE_ERROR) {
-          handleSetErrorResponseMessage({ error, errorMessage: RESPONSE_ERROR.error });
-        }
-      });
+          console.error(RESPONSE_ERROR);
+          for (let error in RESPONSE_ERROR) {
+            handleSetErrorResponseMessage({ error, errorMessage: RESPONSE_ERROR.error });
+          }
+        });
+    } //
+    else if (loginType === 'SELLER') {
+      createAccountSeller(createAccountSellerData)
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
+    }
   };
 
   return (
@@ -91,14 +136,12 @@ const SignUpForm = () => {
             onBlurEvent={() => handleCheckValidationID(id)}
             validationMessageOrPass={validationMessageOrPass.id}
           />
-
           <SignUpInputPassword
             value={password}
             setValue={handleSetPassword}
             onBlurEvent={() => handleCheckValidationPW(password)}
             validationMessageOrPass={validationMessageOrPass.pw}
           />
-
           <SignUpInputPasswordCheck
             value={passwordCheck}
             setValue={handleSetPasswordCheck}
@@ -114,7 +157,6 @@ const SignUpForm = () => {
             onBlurEvent={() => handleCheckName(name)}
             validationMessageOrPass={validationMessageOrPass.name}
           />
-
           <SignUpInputPhoneNumber
             areaCode={areaCode}
             exchangeNumber={exchangeNumber}
@@ -125,7 +167,6 @@ const SignUpForm = () => {
             onBlurEvent={() => handleCheckPhoneNumber({ exchangeNumber, subscriberNumber })}
             validationMessageOrPass={validationMessageOrPass.phoneNumber}
           />
-
           <SignUpInputEmail
             emailId={emailId}
             domainName={domainName}
@@ -135,6 +176,22 @@ const SignUpForm = () => {
             validationMessageOrPass={validationMessageOrPass.email}
           />
         </InputUserInfoContainer>
+        {loginType === 'SELLER' && (
+          <>
+            <SignUpInputRegistrationNumber
+              value={registrationNumber}
+              setValue={handleSetRegistrationNumber}
+              onBlurEvent={() => handleCheckValidationRegistrationNumber(registrationNumber)}
+              validationMessageOrPass={validationMessageOrPass.registerationNumber}
+            />
+            <SignUpInputStoreName
+              value={storeName}
+              setValue={handleSetStoreName}
+              onBlurEvent={() => handleCheckStoreName(storeName)}
+              validationMessageOrPass={validationMessageOrPass.storeName}
+            />
+          </>
+        )}
       </SignForm>
 
       <CheckLabel>
@@ -145,14 +202,8 @@ const SignUpForm = () => {
         </CheckText>
       </CheckLabel>
 
-      {checked &&
-      validationMessageOrPass.id === '멋진 아이디네요 :)' &&
-      validationMessageOrPass.pw === true &&
-      validationMessageOrPass.pwCheck === true &&
-      validationMessageOrPass.name === true &&
-      validationMessageOrPass.phoneNumber === true &&
-      validationMessageOrPass.email === true ? (
-        <MButton width='48rem' text='가입하기' onClickEvent={handleSignUp_Buyer} />
+      {BUYER_VALIDATION || SELLER_SIGNUP_VALIDATION ? (
+        <MButton width='48rem' text='가입하기' onClickEvent={handleSignUp} />
       ) : (
         <MDisabledButton width='48rem' text='가입하기' />
       )}

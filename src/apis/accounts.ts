@@ -54,3 +54,9 @@ export const createAccountSeller = async (createAccountData: createAccountSeller
 export const checkDuplicateID = async ({ username }: Pick<login_I, 'username'>) => {
   return await instance.post('accounts/signup/valid/username/', { username });
 };
+
+export const checkRegistrationNumber = async ({ registration_number }: { registration_number: string }) => {
+  console.log(registration_number);
+
+  return await instance.post('accounts/signup/valid/company_registration_number/', { registration_number });
+};

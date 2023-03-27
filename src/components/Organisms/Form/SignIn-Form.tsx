@@ -8,7 +8,7 @@ import { LoginType } from 'recoil/atoms/member';
 import { useInput } from 'hooks/useInput';
 import { LOGIN_FAILURE } from 'constants/ERROR_MESSAGE';
 import { SignForm } from './SignCommon';
-import LoginTypeButtonWrapper from 'components/Molecules/Wrapper/LoginTypeButtonWrapper';
+import LoginTypeButtonWrapper from 'components/Molecules/Wrapper/LoginType-Button-Wrapper';
 import TextInput from 'components/Atoms/Input/Text/Text-Input';
 import MButton from 'components/Atoms/Button/Size/Medium/M-Button';
 
