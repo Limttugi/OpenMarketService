@@ -1,11 +1,12 @@
-import MainLogoLink from 'components/Atoms/Link/MainLogo-Link';
 import styled from 'styled-components';
 
-interface SignTemplateI {
+import MainLogoLink from 'components/Atoms/Link/MainLogo-Link';
+
+interface SignTemplate_I {
   children: React.ReactNode;
 }
 
-const SignTemplate = ({ children }: SignTemplateI) => {
+const SignTemplate = ({ children }: SignTemplate_I) => {
   return (
     <>
       <MainLogoLink width='23.8rem' height='7.4rem' margin='10rem auto 7rem auto' />

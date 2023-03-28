@@ -1,4 +1,4 @@
-import { instance, setInstanceHeaders } from 'apis';
+import { instance } from 'apis';
 
 interface login_I {
   username: string;
@@ -24,7 +24,6 @@ export const loginRequest = async ({ username, password, login_type }: login_I) 
   const JWT = res.data.token;
 
   localStorage.setItem('JWT', JWT);
-  setInstanceHeaders(JWT);
 
   return res;
 };

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import Header from 'components/Organisms/Header/Header';
 
-interface MainTemplateI {
+interface MainTemplate_I {
   children: React.ReactNode;
 }
 
-const MainTemplate = ({ children }: MainTemplateI) => {
+const MainTemplate = ({ children }: MainTemplate_I) => {
   return (
     <>
       <Header />

@@ -1,6 +1,6 @@
 import { instance } from 'apis';
 
-export const viewCartList = async () => {
+export const bringCartList = async () => {
   return await instance.get('cart/');
 };
 

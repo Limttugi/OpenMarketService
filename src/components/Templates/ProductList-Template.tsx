@@ -1,11 +1,11 @@
 import Header from 'components/Organisms/Header/Header';
 import styled from 'styled-components';
 
-interface SliderTemplateI {
+interface ProductListTemplate_I {
   children: React.ReactNode;
 }
 
-const SliderTemplate = ({ children }: SliderTemplateI) => {
+const ProductListTemplate = ({ children }: ProductListTemplate_I) => {
   return (
     <>
       <Header />
@@ -18,4 +18,4 @@ const Main = styled.main`
   margin-top: 9rem;
 `;
 
-export default SliderTemplate;
+export default ProductListTemplate;

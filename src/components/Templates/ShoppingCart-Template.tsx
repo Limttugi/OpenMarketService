@@ -15,7 +15,7 @@ const ShoppingCartTemplate = ({ children }: ShoppingCartTemplate_I) => {
 };
 
 const Main = styled.main`
-  margin-top: 9rem;
+  margin-top: 14.4rem;
   padding: 0 32rem;
 `;
 

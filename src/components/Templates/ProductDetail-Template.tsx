@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import Header from 'components/Organisms/Header/Header';
 
-interface ProductDetailTemplateI {
+interface ProductDetailTemplate_I {
   children: React.ReactNode;
 }
 
-const ProductDetailTemplate = ({ children }: ProductDetailTemplateI) => {
+const ProductDetailTemplate = ({ children }: ProductDetailTemplate_I) => {
   return (
     <>
       <Header />
