@@ -35,15 +35,17 @@ const SignInForm = () => {
       if (pwInputRef.current) pwInputRef.current.focus();
     } //
     else {
-      try {
-        await loginRequest({ username: id, password, login_type });
-        navigate(-1);
-      } catch (e: any) {
-        console.error(e.response.data.FAIL_Message);
-        setLoginSuccess(false);
-        setPassword('');
-        pwInputRef.current.focus();
-      }
+      loginRequest({ username: id, password, login_type })
+        .then(res => {
+          console.log(res);
+          navigate(-1);
+        })
+        .catch(err => {
+          console.error(err);
+          setLoginSuccess(false);
+          setPassword('');
+          pwInputRef.current.focus();
+        });
     }
   };
 
