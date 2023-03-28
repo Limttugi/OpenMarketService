@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import ProductDetailTemplate from 'components/Templates/ProductDetailTemplate';
 import ProductDetailMenuContainer from 'components/Molecules/ListContainer/ProductDetailMenu-Container';
 import ProductBuyAndDescriptionSection from 'components/Organisms/Section/ProductBuyAndDescription-Section';
+import ProductDetailTemplate from 'components/Templates/ProductDetail-Template';
 
 const ProductDetail = () => {
   return (
