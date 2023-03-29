@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+
 import Header from 'components/Organisms/Header/Header';
+import Footer from 'components/Organisms/Footer/Footer';
 
 interface ShoppingCartTemplate_I {
   children: React.ReactNode;
@@ -10,6 +12,7 @@ const ShoppingCartTemplate = ({ children }: ShoppingCartTemplate_I) => {
     <>
       <Header />
       <Main>{children}</Main>
+      <Footer />
     </>
   );
 };

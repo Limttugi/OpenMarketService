@@ -1,3 +1,4 @@
+import Footer from 'components/Organisms/Footer/Footer';
 import Header from 'components/Organisms/Header/Header';
 import styled from 'styled-components';
 
@@ -10,6 +11,7 @@ const ProductListTemplate = ({ children }: ProductListTemplate_I) => {
     <>
       <Header />
       <Main>{children}</Main>
+      <Footer />
     </>
   );
 };
