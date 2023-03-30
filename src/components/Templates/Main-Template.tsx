@@ -18,7 +18,6 @@ const MainTemplate = ({ children }: MainTemplate_I) => {
 };
 
 const Main = styled.main`
-  margin-top: 9rem;
   padding: 0 32rem;
 `;
 

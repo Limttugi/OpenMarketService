@@ -24,6 +24,9 @@ export default Footer;
 const FooterWrapper = styled.footer`
   display: flex;
   flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   padding: 5.4rem 32rem;
   background-color: #f2f2f2;
 `;

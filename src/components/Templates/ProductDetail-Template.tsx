@@ -18,7 +18,7 @@ const ProductDetailTemplate = ({ children }: ProductDetailTemplate_I) => {
 };
 
 const Main = styled.main`
-  margin-top: 17rem;
+  margin-top: 8rem;
   padding: 0 32rem;
 `;
 

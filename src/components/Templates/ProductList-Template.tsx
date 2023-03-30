@@ -16,8 +16,6 @@ const ProductListTemplate = ({ children }: ProductListTemplate_I) => {
   );
 };
 
-const Main = styled.main`
-  margin-top: 9rem;
-`;
+const Main = styled.main``;
 
 export default ProductListTemplate;
