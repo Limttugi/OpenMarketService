@@ -2,16 +2,16 @@ import { CSS_I, ProductEssentialInfo_I } from 'global_type_interface';
 import styled from 'styled-components';
 
 type ProductEssentialInfo_T = Pick<ProductEssentialInfo_I, 'price'>;
-type CSS_T = Pick<CSS_I, 'fontSize' | 'color'>;
+type CSS_T = Pick<CSS_I, 'fontSize' | 'color' | 'alignItems'>;
 interface ProductPriceText_I extends ProductEssentialInfo_T, CSS_T {
   subFontSize: string;
 }
 
-const ProductPriceText = ({ price, fontSize, subFontSize, color }: ProductPriceText_I) => {
+const ProductPriceText = ({ price, fontSize, subFontSize, color, alignItems }: ProductPriceText_I) => {
   const _price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   return (
-    <PriceWrapper color={color}>
+    <PriceWrapper color={color} alignItems={alignItems}>
       <Price fontSize={fontSize}>{_price}</Price>
       <Won fontSize={subFontSize}>원</Won>
     </PriceWrapper>
@@ -20,9 +20,9 @@ const ProductPriceText = ({ price, fontSize, subFontSize, color }: ProductPriceT
 
 export default ProductPriceText;
 
-const PriceWrapper = styled.span`
+const PriceWrapper = styled.span<{ alignItems?: string }>`
   display: flex;
-  align-items: center;
+  align-items: ${props => props.alignItems};
   color: ${props => props.color};
 `;
 

@@ -1,26 +1,23 @@
 import styled from 'styled-components';
 
-import { useRecoilValue } from 'recoil';
-import { productBuyQuantityState } from 'recoil/atoms/product';
 import ProductPriceText from 'components/Atoms/Text/Product-Price-Text';
 import { mainColor } from 'styles/global';
 
 interface ProductTotalQuantityPriceWrapper_I {
   price: number;
+  totalQuantity: number;
 }
 
-const ProductTotalQuantityPriceWrapper = ({ price }: ProductTotalQuantityPriceWrapper_I) => {
-  const quantity = useRecoilValue(productBuyQuantityState);
-
+const ProductTotalQuantityPriceWrapper = ({ price, totalQuantity }: ProductTotalQuantityPriceWrapper_I) => {
   return (
     <ProductTotalQuantityPriceContainer>
       총 상품 금액
       <TotalQuantityPriceContainer>
         <TotalQuantityText>
-          총 수량 <Quantity>{quantity}</Quantity>개
+          총 수량 <Quantity>{totalQuantity}</Quantity>개
         </TotalQuantityText>
 
-        <ProductPriceText price={price * quantity} fontSize='3.6rem' subFontSize='1.8rem' color={mainColor} />
+        <ProductPriceText price={price * totalQuantity} fontSize='3.6rem' subFontSize='1.8rem' color={mainColor} />
       </TotalQuantityPriceContainer>
     </ProductTotalQuantityPriceContainer>
   );

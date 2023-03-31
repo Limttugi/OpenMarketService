@@ -28,7 +28,7 @@ const ProductItemListItem = ({ product_id, image, store_name, product_name, pric
 
         <ProductStoreNameText store_name={store_name} fontSize='1.6rem' />
         <ProductNameText product_name={product_name} fontSize='1.8rem' margin='1rem 0' />
-        <ProductPriceText price={price} fontSize='2.4rem' subFontSize='1.6rem' color='black' />
+        <ProductPriceText price={price} fontSize='2.4rem' subFontSize='1.6rem' color='black' alignItems='center' />
       </LinkWrapper>
     </li>
   );

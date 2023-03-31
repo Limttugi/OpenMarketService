@@ -10,9 +10,16 @@ import ProductQuantityButton from 'components/Atoms/Button/ProductQuantity-Butto
 import MButton from 'components/Atoms/Button/Size/Medium/M-Button';
 import MDarkButton from 'components/Atoms/Button/Size/Medium/M-Dark-Button';
 import ProductTotalQuantityPriceWrapper from 'components/Molecules/Wrapper/Product-TotalQuantityPrice-Wrapper';
+import DeliveryText from 'components/Atoms/Text/Delivery-Text';
+import { useState } from 'react';
 
 const ProductBuyAndDescriptionSection = () => {
   const productDetail = useRecoilValue(handleGetProductDetail);
+  const [totalQuantity, setTotalQuantity] = useState<number>(1);
+
+  const handleSetTotalQuantity = (quantity: number) => {
+    setTotalQuantity(quantity);
+  };
 
   return (
     <section>
@@ -31,13 +38,13 @@ const ProductBuyAndDescriptionSection = () => {
             <ProductPriceText price={productDetail.price} fontSize='3.6rem' subFontSize='1.8rem' color='black' />
           </ProductNameTextWrapper>
 
-          <DeliveryText>택배배송 / 무료배송</DeliveryText>
+          <DeliveryText fontSize='1.6rem' fontWeight='400' lineHeight='2rem' margin='13.8rem 0 2rem 0' />
 
           <DividingLine />
-          <ProductQuantityButton stock={productDetail.stock} />
+          <ProductQuantityButton stock={productDetail.stock} handleSetTotalQuantity={handleSetTotalQuantity} />
           <DividingLine />
 
-          <ProductTotalQuantityPriceWrapper price={productDetail.price} />
+          <ProductTotalQuantityPriceWrapper price={productDetail.price} totalQuantity={totalQuantity} />
 
           <ButtonContainer>
             <MButton text='바로 구매' width='41.6rem' />
@@ -65,15 +72,6 @@ const RightContainer = styled.div`
 const ProductNameTextWrapper = styled.span`
   display: flex;
   flex-direction: column;
-`;
-
-const DeliveryText = styled.p`
-  font-size: 1.6rem;
-  font-weight: 400;
-  line-height: 2rem;
-  color: #767676;
-
-  margin: 13.8rem 0 2rem 0;
 `;
 
 const DividingLine = styled.hr`

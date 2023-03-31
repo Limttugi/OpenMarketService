@@ -4,22 +4,35 @@ import PlusImage from 'img/icon-plus-line.svg';
 import PlusImageWhite from 'img/icon-plus-line-white.svg';
 import MinusImage from 'img/icon-minus-line.svg';
 import MinusImageWhite from 'img/icon-minus-line-white.svg';
-import { useRecoilState } from 'recoil';
-import { productBuyQuantityState } from 'recoil/atoms/product';
+import { useEffect, useState } from 'react';
 
 interface ProductQuantityButton_I {
-  stock: number;
+  cartQuantity?: number;
+  stock?: number;
+  handleSetTotalQuantity?: Function;
 }
 
-const ProductQuantityButton = ({ stock }: ProductQuantityButton_I) => {
-  const [quantity, setQuantity] = useRecoilState(productBuyQuantityState);
+const ProductQuantityButton = ({ cartQuantity, stock, handleSetTotalQuantity }: ProductQuantityButton_I) => {
+  const [quantity, setQuantity] = useState<number>(1);
+
+  useEffect(() => {
+    handleSetTotalQuantity && handleSetTotalQuantity(quantity);
+  }, [handleSetTotalQuantity, quantity]);
+
+  useEffect(() => {
+    cartQuantity && setQuantity(cartQuantity);
+  }, [cartQuantity]);
 
   const handleMinusQuantity = () => {
-    if (quantity > 1) setQuantity(quantity - 1);
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
   };
 
   const handlePlusQuantity = () => {
-    if (quantity < stock) setQuantity(quantity + 1);
+    if (stock && quantity < stock) {
+      setQuantity(quantity + 1);
+    }
   };
 
   return (
@@ -48,7 +61,7 @@ const ButtonWraaper = styled.div`
   margin: 3rem 0;
 `;
 
-const MinusButton = styled.button<{ disabled: any }>`
+const MinusButton = styled.button.attrs({ type: 'button' })<{ disabled: any }>`
   border-right: 1px solid #c4c4c4;
   border-radius: 0.5rem 0 0 0.5rem;
   width: 100%;
@@ -65,7 +78,7 @@ const ProductQuantity = styled.span`
   font-weight: 400;
 `;
 
-const PlusButton = styled.button<{ disabled: any }>`
+const PlusButton = styled.button.attrs({ type: 'button' })<{ disabled: any }>`
   border-left: 1px solid #c4c4c4;
   border-radius: 0 0.5rem 0.5rem 0;
   width: 100%;
