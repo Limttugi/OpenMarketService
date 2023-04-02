@@ -1,23 +1,28 @@
 import styled from 'styled-components';
 
-import ProductPriceText from 'components/Atoms/Text/Product-Price-Text';
 import { mainColor } from 'styles/global';
+import ProductPriceText from 'components/Atoms/Text/Product-Price-Text';
 
 interface ProductTotalQuantityPriceWrapper_I {
   price: number;
-  totalQuantity: number;
+  numberOfProductToBuy: number;
 }
 
-const ProductTotalQuantityPriceWrapper = ({ price, totalQuantity }: ProductTotalQuantityPriceWrapper_I) => {
+const ProductTotalQuantityPriceWrapper = ({ price, numberOfProductToBuy }: ProductTotalQuantityPriceWrapper_I) => {
   return (
     <ProductTotalQuantityPriceContainer>
       총 상품 금액
       <TotalQuantityPriceContainer>
         <TotalQuantityText>
-          총 수량 <Quantity>{totalQuantity}</Quantity>개
+          총 수량 <Quantity>{numberOfProductToBuy}</Quantity>개
         </TotalQuantityText>
 
-        <ProductPriceText price={price * totalQuantity} fontSize='3.6rem' subFontSize='1.8rem' color={mainColor} />
+        <ProductPriceText
+          price={price * numberOfProductToBuy}
+          fontSize='3.6rem'
+          subFontSize='1.8rem'
+          color={mainColor}
+        />
       </TotalQuantityPriceContainer>
     </ProductTotalQuantityPriceContainer>
   );

@@ -11,15 +11,11 @@ import MButton from 'components/Atoms/Button/Size/Medium/M-Button';
 import MDarkButton from 'components/Atoms/Button/Size/Medium/M-Dark-Button';
 import ProductTotalQuantityPriceWrapper from 'components/Molecules/Wrapper/Product-TotalQuantityPrice-Wrapper';
 import DeliveryText from 'components/Atoms/Text/Delivery-Text';
-import { useState } from 'react';
+import useShoppingCart from 'hooks/useShoppingCart';
 
 const ProductBuyAndDescriptionSection = () => {
+  const { numberOfProductToBuy, handleSetnumberOfProductToBuy } = useShoppingCart();
   const productDetail = useRecoilValue(handleGetProductDetail);
-  const [totalQuantity, setTotalQuantity] = useState<number>(1);
-
-  const handleSetTotalQuantity = (quantity: number) => {
-    setTotalQuantity(quantity);
-  };
 
   return (
     <section>
@@ -41,11 +37,13 @@ const ProductBuyAndDescriptionSection = () => {
           <DeliveryText fontSize='1.6rem' fontWeight='400' lineHeight='2rem' margin='13.8rem 0 2rem 0' />
 
           <DividingLine />
-          <ProductQuantityButton stock={productDetail.stock} handleSetTotalQuantity={handleSetTotalQuantity} />
+          <ProductQuantityButton
+            stock={productDetail.stock}
+            handleSetnumberOfProductToBuy={handleSetnumberOfProductToBuy}
+          />
           <DividingLine />
 
-          <ProductTotalQuantityPriceWrapper price={productDetail.price} totalQuantity={totalQuantity} />
-
+          <ProductTotalQuantityPriceWrapper price={productDetail.price} numberOfProductToBuy={numberOfProductToBuy} />
           <ButtonContainer>
             <MButton text='바로 구매' width='41.6rem' />
             <MDarkButton text='장바구니' width='20rem' />

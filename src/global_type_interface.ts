@@ -1,5 +1,4 @@
 import { Dispatch } from 'react';
-import { RegularExpressionLiteral } from 'typescript';
 
 // CSS //
 export interface CSS_I {
@@ -9,7 +8,10 @@ export interface CSS_I {
   borderRadius?: string;
   border?: string;
   fontSize?: string;
+  fontWeight: string;
+  lineHeight: string;
   color?: string;
+  alignItems?: string;
 }
 
 // 상품 정보 //
@@ -53,3 +55,12 @@ export interface CheckInputUserInfo_I {
 
 // Input Ref //
 export type Ref_T = React.ForwardedRef<HTMLInputElement> | React.MutableRefObject<HTMLInputElement>;
+
+// 장바구니 상품 정보 //
+export interface Product_Info_In_ShoppingCart_I {
+  cart_item_id: number;
+  is_active: boolean;
+  my_cart: number;
+  product_id: number;
+  quantity: number;
+}

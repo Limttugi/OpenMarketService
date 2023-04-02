@@ -9,15 +9,15 @@ import { useEffect, useState } from 'react';
 interface ProductQuantityButton_I {
   cartQuantity?: number;
   stock?: number;
-  handleSetTotalQuantity?: Function;
+  handleSetnumberOfProductToBuy?: Function;
 }
 
-const ProductQuantityButton = ({ cartQuantity, stock, handleSetTotalQuantity }: ProductQuantityButton_I) => {
+const ProductQuantityButton = ({ cartQuantity, stock, handleSetnumberOfProductToBuy }: ProductQuantityButton_I) => {
   const [quantity, setQuantity] = useState<number>(1);
 
   useEffect(() => {
-    handleSetTotalQuantity && handleSetTotalQuantity(quantity);
-  }, [handleSetTotalQuantity, quantity]);
+    handleSetnumberOfProductToBuy && handleSetnumberOfProductToBuy(quantity);
+  }, [handleSetnumberOfProductToBuy, quantity]);
 
   useEffect(() => {
     cartQuantity && setQuantity(cartQuantity);
