@@ -26,7 +26,7 @@ const ShoppingCartItemList = ({
 }: ShoppingCartItemList_I) => {
   const { numberOfProductToBuy, handleSetnumberOfProductToBuy } = useShoppingCart();
   const [productInfo, setProductInfo] = useState<Product_Info_I>();
-  // const [checked, setChecked] = useState<boolean>(is_active);
+  const [checked, setChecked] = useState<boolean>(is_active);
 
   useEffect(() => {
     getProductDetail(product_id)
@@ -37,36 +37,33 @@ const ShoppingCartItemList = ({
   }, [product_id]);
 
   return (
-    <Tr>
+    <>
       {productInfo && (
-        <>
-          <Td>
-            <CheckBoxInput productId={1} isChecked={true} />
-          </Td>
-          <Td>
-            <ProductImage
-              width='16rem'
-              height='16rem'
-              border='1px solid red'
-              borderRadius='1rem'
-              image={productInfo.image}
-              product_name={productInfo.product_name}
-            />
-            <div>
-              <ProductStoreNameText store_name={productInfo.store_name} fontSize='1.4rem' />
-              <ProductNameText product_name={productInfo.product_name} fontSize='1.8rem' margin='1rem 0' />
-              <ProductPriceText price={productInfo.price} fontSize='1.4rem' subFontSize='1.4rem' />
-              <DeliveryText fontSize='1.4rem' fontWeight='400' lineHeight='1.8rem' margin='4rem 0 0 0' />
-            </div>
-          </Td>
-          <Td>
-            <ProductQuantityButton
-              stock={productInfo?.stock}
-              cartQuantity={cartQuantity}
-              handleSetnumberOfProductToBuy={handleSetnumberOfProductToBuy}
-            />
-          </Td>
-          <Td>
+        <List>
+          <CheckBoxInput productId={1} isChecked={checked} setChecked={setChecked} />
+          <ProductImage
+            width='16rem'
+            height='16rem'
+            borderRadius='1rem'
+            margin='0 3.6rem 0 5rem'
+            image={productInfo.image}
+            product_name={productInfo.product_name}
+          />
+
+          <div style={{ width: '42rem' }}>
+            <ProductStoreNameText store_name={productInfo.store_name} fontSize='1.4rem' />
+            <ProductNameText product_name={productInfo.product_name} fontSize='1.8rem' margin='1rem 0' />
+            <ProductPriceText price={productInfo.price} fontSize='1.4rem' subFontSize='1.4rem' />
+            <DeliveryText fontSize='1.4rem' fontWeight='400' lineHeight='1.8rem' margin='4rem 0 0 0' />
+          </div>
+
+          <ProductQuantityButton
+            stock={productInfo?.stock}
+            cartQuantity={cartQuantity}
+            handleSetnumberOfProductToBuy={handleSetnumberOfProductToBuy}
+          />
+
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '14.8rem' }}>
             <ProductPriceText
               price={productInfo.price * numberOfProductToBuy}
               color='#eb5757'
@@ -74,45 +71,20 @@ const ShoppingCartItemList = ({
               subFontSize='1.8rem'
             />
             <SmallButton width='13rem' text='주문하기' />
-          </Td>
-        </>
+          </div>
+        </List>
       )}
-    </Tr>
+    </>
   );
 };
 
 export default ShoppingCartItemList;
 
-const Tr = styled.tr`
-  border: 1px solid blue;
+const List = styled.li`
+  display: flex;
+  align-items: center;
+  border: 2px solid #e2e2e2;
+  border-radius: 1rem;
   height: 20rem;
-`;
-
-const Td = styled.td`
-  vertical-align: middle;
-  text-align: center;
-  &:nth-of-type(2) {
-    text-align: start;
-    & > img {
-      float: left;
-    }
-    & > div {
-      float: left;
-      margin-left: 3.6rem;
-    }
-  }
-  &:last-child {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5.8rem;
-    gap: 2.6rem;
-  }
-`;
-
-const Price = styled.span<{ fontSize: string; color: string }>`
-  font-size: ${props => props.fontSize};
-  font-weight: 700;
-  color: ${props => props.color};
-  margin-bottom: 2.6rem;
+  padding-left: 4rem;
 `;
