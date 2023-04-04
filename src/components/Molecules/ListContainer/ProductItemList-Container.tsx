@@ -1,29 +1,17 @@
 import styled from 'styled-components';
-
-import { useLayoutEffect } from 'react';
+import { useQuery } from 'react-query';
 
 import { getAllProducts } from 'apis/products';
-
 import { Product_Info_I } from 'global_type_interface';
 import ProductItemListItem from '../ListItem/ProductItem-ListItem';
-import { useRecoilState } from 'recoil';
-import { productListState } from 'recoil/atoms/product';
 
 const ProductItemListContainer = () => {
-  const [productList, setProductList] = useRecoilState(productListState);
-
-  useLayoutEffect(() => {
-    getAllProducts()
-      .then(res => {
-        if (res.data.results !== productList) setProductList(res.data.results);
-      })
-      .catch(err => console.error(err));
-  }, []);
+  const { data } = useQuery('productList', getAllProducts);
 
   return (
     <Section>
       <ListContainer>
-        {productList.map((item: Product_Info_I) => {
+        {data?.data.results.map((item: Product_Info_I) => {
           const { product_id, image, store_name, product_name, price } = item;
 
           return (
